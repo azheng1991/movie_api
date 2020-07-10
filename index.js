@@ -20,7 +20,7 @@ mongoose.connect(
 );
 */
 
-//Connect to online database hosted on MongoDB Atlas
+Connect to online database hosted on MongoDB Atlas
 mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -38,6 +38,7 @@ var auth = require("./auth")(app);
 //granting access to only certain origins
 let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
 
+/*
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
@@ -48,6 +49,13 @@ app.use(cors({
     return callback(null, true);
   }
 }));
+*/
+
+//welcome message
+app.get('/', (req, res) => {
+  res.send('<h1>' + '<b>Welcome to myFlix !<b>' + '</h1>')
+})
+
 
 //Read requests
 
