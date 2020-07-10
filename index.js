@@ -16,6 +16,8 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
+{ useUnifiedTopology: true };
+
   // app.use initializations
 app.use(bodyParser.json());
 app.use(morgan("common"));
@@ -81,7 +83,7 @@ app.get("/movies/directors/:Name", passport.authenticate('jwt', { session: false
 //Create requests
 
 //Posts a new user
-app.post('/users', passport.authenticate('jwt', { session: false }), function(req, res) {
+app.post('/users', function(req, res) {
   Users.findOne({ Username : req.body.Username })
   .then(function(user) {
       if (user) {
