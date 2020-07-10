@@ -13,10 +13,16 @@ const Users = Models.User;
 const passport = require("passport");
 require("./passport");
 
+/*
 mongoose.connect(
   "mongodb://localhost:27017/myFlixDB",
   { useNewUrlParser: true }
 );
+*/
+
+//Connect to online database hosted on MongoDB Atlas
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 { useUnifiedTopology: true };
 
