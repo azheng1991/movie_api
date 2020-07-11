@@ -17,7 +17,8 @@ require("./passport");
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 */
 
-Connect to online database hosted on MongoDB Atlas
+
+//Connect to online database hosted on MongoDB Atlas
 mongoose.connect('mongodb+srv://azheng:celtics88@myflixdb.6a2km.mongodb.net/myFlixDB?retryWrites=true&w=majority,' { useNewUrlParser: true, useUnifiedTopology: true });
 
 
