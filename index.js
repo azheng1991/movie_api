@@ -18,7 +18,7 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 */
 
 Connect to online database hosted on MongoDB Atlas
-mongoose.connect( mongodb+srv://azheng:celtics88@cluster0.6a2km.mongodb.net/myFlixDB?retryWrites=true&w=majority, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( 'mongodb+srv://azheng:celtics88@cluster0.6a2km.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 */
 
 
