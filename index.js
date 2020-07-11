@@ -175,6 +175,8 @@ app.post(
       return res.status(422).json({ errors: errors.array() })
     }
 
+
+    console.log(User)
     let hashedPassword = User.hashPassword(req.body.Password)
     User.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
       .then((user) => {
