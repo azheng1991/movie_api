@@ -8,18 +8,18 @@ const Models = require("./models.js");
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
-const Users = Models.User;
+const User = Models.User;
 
 const passport = require("passport");
 require("./passport");
 
-/*
+
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-*/
 
-//Connect to online database hosted on MongoDB Atlas
+
+/*Connect to online database hosted on MongoDB Atlas
 mongoose.connect('mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });', { useNewUrlParser: true, useUnifiedTopology: true });
-
+*/
 
 
   // app.use initializations
@@ -149,58 +149,38 @@ app.get(
   }
 )
 
-// Add a user
-/* We'll expect JSON in this information
-{
- ID : Integer,
- Username : String,
- Password : String,
- Email : String,
- Birthday : Date
-}*/
-app.post("/users", function(req, res) {
-  // Validation logic
-  req.checkBody("Username", "Username is requried").notEmpty();
-  req
-    .checkBody("Username", "Username contains non alphanumeric characters")
-    .isAlphanumeric();
-  req.checkBody("Password", "Password is required").notEmpty();
-  req.checkBody("Email", "Email is requried").notEmpty();
-  req.checkBody("Email", "Email does not appear to be valid").isEmail();
+//create new user
+app.post('/users', (req, res) => {
+  let hashedPassword = console.log(user);
 
-  //check the validation object for errors
-  var errors = req.validationErrors();
-
-  if (errors) {
-    return res.status(422).json({ errors: errors });
-  }
-
-  var hashedPassword = Users.hashPassword(req.body.Password);
-  Users.findOne({ Username: req.body.Username })
-    .then(function(user) {
+  User.hashPassword(req.body.Password);
+  User.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+    .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + " already exists");
+      //If the user is found, send a response that it already exists
+        return res.status(400).send(req.body.Username + ' already exists');
       } else {
-        Users.create({
-          Username: req.body.Username,
-          Password: hashedPassword,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday
-        })
-          .then(function(user) {
-            res.status(201).json(user);
+        User
+          .create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
           })
-          .catch(function(error) {
+          .then((user) => { res.status(201).json(user) })
+          .catch((error) => {
             console.error(error);
-            res.status(500).send("Error: " + error);
+            res.status(500).send('Error: ' + error);
           });
       }
     })
-    .catch(function(error) {
+    .catch((error) => {
       console.error(error);
-      res.status(500).send("Error: " + error);
+      res.status(500).send('Error: ' + error);
     });
 });
+
+
 
 
 // Update a user's info, by username
