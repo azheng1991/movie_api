@@ -13,13 +13,13 @@ const User = Models.User;
 const passport = require("passport");
 require("./passport");
 
-
+/*
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-
-/*Connect to online database hosted on MongoDB Atlas
-mongoose.connect('mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });', { useNewUrlParser: true, useUnifiedTopology: true });
 */
+
+Connect to online database hosted on MongoDB Atlas
+mongoose.connect('mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 
   // app.use initializations
@@ -151,9 +151,7 @@ app.get(
 
 //create new user
 app.post('/users', (req, res) => {
-  let hashedPassword = console.log(user);
-
-  User.hashPassword(req.body.Password);
+  let hashedPassword = User.hashPassword(req.body.Password);
   User.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
@@ -179,7 +177,6 @@ app.post('/users', (req, res) => {
       res.status(500).send('Error: ' + error);
     });
 });
-
 
 
 
