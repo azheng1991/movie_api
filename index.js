@@ -14,9 +14,7 @@ const passport = require("passport");
 require("./passport");
 
 
-mongoose.connect(
-  "mongodb://localhost:27017/myFlixDB",
-  { useNewUrlParser: true }
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 /*
