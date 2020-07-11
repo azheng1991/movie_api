@@ -13,16 +13,15 @@ const Users = Models.User;
 const passport = require("passport");
 require("./passport");
 
-
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-
 /*
-Connect to online database hosted on MongoDB Atlas
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 */
 
-{ useUnifiedTopology: true };
+Connect to online database hosted on MongoDB Atlas
+mongoose.connect( mongodb+srv://azheng:celtics88@cluster0.6a2km.mongodb.net/myFlixDB?retryWrites=true&w=majority, { useNewUrlParser: true, useUnifiedTopology: true });
+*/
+
+
 
   // app.use initializations
 app.use(bodyParser.json());
