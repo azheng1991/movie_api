@@ -1,58 +1,58 @@
-const express = require("express"),
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
-const morgan = require("morgan");
-const app = express();
-const mongoose = require("mongoose");
-const Models = require("./models.js");
-const cors = require('cors');
-const { check, validationResult } = require('express-validator');
-const Movies = Models.Movie;
-const User = Models.User;
+const express = require('express'),
+  bodyParser = require('body-parser'),
+  morgan = require('morgan'),
+  uuid = require('uuid'),
+  mongoose = require('mongoose'),
+  cors = require('cors'),
+  Models = require('./models.js')
 
-const passport = require("passport");
-require("./passport");
+const passport = require('passport')
+require('./passport')
 
-/*
+const { check, validationResult } = require('express-validator')
+
+const app = express()
+const Movies = Models.Movie
+const Users = Models.User
+
+
+/*connect locally
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 */
 
 
 //Connect to online database hosted on MongoDB Atlas
-mongoose.connect('mongodb+srv://azheng:celtics88@myflixdb.6a2km.mongodb.net/myFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
-  // app.use initializations
-app.use(bodyParser.json());
-app.use(morgan("common"));
-app.use(express.static("public"));
-app.use(cors());
+app.use(bodyParser.json())
+// Logging with Morgan
+app.use(morgan('common'))
 
+let auth = require('./auth')(app)
+//creates a list of allowed domains
+let allowedOrigins = ['http://192.168.1.51:8080']
 
-var auth = require("./auth")(app);
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true)
+      if (allowedOrigins.indexOf(origin) === -1) {
+        // If a specific origin isn’t found on the list of allowed origins
+        let message =
+          'The CORS policy for this application doesn’t allow access from origin ' +
+          origin
+        return callback(new Error(message), false)
+      }
+      return callback(null, true)
+    },
+  })
+)
 
-/*granting access to only certain origins
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
-
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){ // If a specific origin isn’t found on the list of allowed origins
-      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-      return callback(new Error(message ), false);
-    }
-    return callback(null, true);
-  }
-}));
-*/
-
-//welcome message
 app.get('/', (req, res) => {
   res.send('<h1>' + '<b>Welcome to myFlix !<b>' + '</h1>')
 })
-
 
 // Get all MovieTitles with Description
 app.get(
@@ -150,36 +150,60 @@ app.get(
   }
 )
 
-//create new user
-app.post('/users', (req, res) => {
-  let hashedPassword = User.hashPassword(req.body.Password);
-  User.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
-    .then((user) => {
-      if (user) {
-      //If the user is found, send a response that it already exists
-        return res.status(400).send(req.body.Username + ' already exists');
-      } else {
-        User
-          .create({
+//Add a user
+/* We’ll expect JSON in this format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}*/
+app.post(
+  '/users',
+  [
+    check('Username', 'Username is required').isLength({ min: 5 }),
+    check(
+      'Username',
+      'Username contains non alphanumeric characters - not allowed.'
+    ).isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail(),
+  ],
+  (req, res) => {
+    let errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
+
+    let hashedPassword = Users.hashPassword(req.body.Password)
+    Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+      .then((user) => {
+        if (user) {
+          //If the user is found, send a response that it already exists
+          return res.status(400).send(req.body.Username + 'already exists')
+        } else {
+          Users.create({
             Username: req.body.Username,
             Password: hashedPassword,
             Email: req.body.Email,
-            Birthday: req.body.Birthday
+            Birthday: req.body.Birthday,
           })
-          .then((user) => { res.status(201).json(user) })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send('Error: ' + error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
-});
-
-
+            .then((user) => {
+              res.status(201).json(user)
+            })
+            .catch((error) => {
+              console.error(error)
+              res.status(500).send('Error: ' + error)
+            })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+        res.status(500).send('Error: ' + error)
+      })
+  }
+)
 
 // Update a user's info, by username
 /* We’ll expect JSON in this format
@@ -309,17 +333,18 @@ app.delete(
   }
 )
 
+// Serving Static Files
+app.use('/dev', express.static('public'))
 
-/* Error Handling
+/// Error Handling
 app.use((err, req, res, next) => {
   if (err) {
     console.error(err.stack)
-    res.status(500).send('Error: ' + err)
+    res.status(500).send('Something broke!')
   } else {
-    console.3('Added to log.')
+    console.log('Added to log.')
   }
 })
-*/
 
 // listen for requests
 const port = process.env.PORT || 8080
