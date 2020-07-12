@@ -310,15 +310,16 @@ app.delete(
 )
 
 
-/// Error Handling
+/* Error Handling
 app.use((err, req, res, next) => {
   if (err) {
     console.error(err.stack)
     res.status(500).send('Error: ' + err)
   } else {
-    console.log('Added to log.')
+    console.3('Added to log.')
   }
 })
+*/
 
 // listen for requests
 const port = process.env.PORT || 8080
