@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 
 
 //Connect to online database hosted on MongoDB Atlas
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
@@ -32,7 +32,7 @@ app.use(morgan('common'))
 
 let auth = require('./auth')(app)
 //creates a list of allowed domains
-let allowedOrigins = ['http://192.168.1.51:8080']
+let allowedOrigins = ['http://localhost:1234']
 
 app.use(
   cors({
