@@ -57,7 +57,6 @@ app.get('/', (req, res) => {
 // Get all MovieTitles with Description
 app.get(
   '/movies',
-  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.find({}, { Title: 1, Description: 1 })
       .then((movies) => {
@@ -73,7 +72,6 @@ app.get(
 // Get a Movie by Title
 app.get(
   '/movies/:Title',
-  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.findOne({ Title: req.params.Title })
       .then((movies) => {
@@ -89,7 +87,6 @@ app.get(
 // Get a Genre by Name
 app.get(
   '/movies/genres/:Name',
-  passport.authenticate('jwt', { session: false }),
   (req, res) => {
     Movies.findOne({ 'Genre.Name': req.params.Name })
       .then((movies) => {
@@ -104,8 +101,7 @@ app.get(
 
 // Get a Director by Name
 app.get(
-  '/movies/directors/:Name',
-  passport.authenticate('jwt', { session: false }),
+  '/movies/directors/:Name', \
   (req, res) => {
     Movies.findOne({ 'Director.Name': req.params.Name })
       .then((movies) => {
