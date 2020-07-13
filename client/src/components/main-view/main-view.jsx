@@ -6,19 +6,21 @@ import { MovieView } from '../movie-view/movie-view';
 
 export class MainView extends React.Component {
     constructor() {
+        //Call the superclass constructor so React can initialize it
         super();
 
-        // Initialize the state to an empty object so we can destructrue it later
+        //Initialize the state to an empty object so we can destructure it later
         this.state = {
             movies: null,
             selectedMovie: null
         };
     }
 
+    //One of the "hooks" available in a React component
     componentDidMount() {
         axios.get('https://desolate-forest-59381.herokuapp.com/movies')
             .then(response => {
-                // Assign the result to the state
+                //Assign the result to the state
                 this.setState({
                     movies: response.data
                 });
@@ -34,13 +36,13 @@ export class MainView extends React.Component {
         });
     }
 
-    // this overrides the render() method of the superclass
+    //This overrides the render() method of the superclass
+    //No need to call super() though, as it does nothing by default
     render() {
-
-        // Before data is initially loaded
+        //If the state isn't initialized, this will throw on runtime before the data is initially loaded
         const { movies, selectedMovie } = this.state;
 
-        // Before movies have been loaded
+        //Before the movies have been loaded
         if (!movies) return <div className="main-view" />;
 
         return (
@@ -48,7 +50,7 @@ export class MainView extends React.Component {
                 {selectedMovie
                     ? <MovieView movie={selectedMovie} />
                     : movies.map(movie => (
-                        <MovieCard key={movie.id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
+                        <MovieCard key={movie.id} movie={movie} onClick={this.onMovieClick}></MovieCard>
                     ))
                 }
             </div>

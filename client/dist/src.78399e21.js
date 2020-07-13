@@ -30164,38 +30164,46 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   _createClass(MovieView, [{
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          _onClick = _this$props.onClick;
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
       }, _react.default.createElement("img", {
         className: "movie-poster",
-        src: movies.ImagePath
+        src: movie.ImagePath
       }), _react.default.createElement("div", {
         className: "movie-title"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Title: "), _react.default.createElement("span", {
         className: "value"
-      }, movies.Title)), _react.default.createElement("div", {
+      }, movie.Title)), _react.default.createElement("div", {
         className: "movie-description"
       }, _react.default.createElement("span", {
         className: "label"
-      }, "Description: "), _react.default.createElement("span", {
+      }, "Description "), _react.default.createElement("span", {
         className: "value"
-      }, movies.Description)), _react.default.createElement("div", {
+      }, movie.Description)), _react.default.createElement("div", {
         className: "movie-genre"
       }, _react.default.createElement("span", {
         className: "label"
       }, "Genre: "), _react.default.createElement("span", {
         className: "value"
-      }, movies.Genre.Name)), _react.default.createElement("div", {
+      }, movie.Genre.Name)), _react.default.createElement("div", {
         className: "movie-director"
       }, _react.default.createElement("span", {
         className: "label"
-      }, "Director: "), _react.default.createElement("span", {
+      }, "Director "), _react.default.createElement("span", {
         className: "value"
-      }, movies.Director.Name)));
+      }, movie.Director.Name)), _react.default.createElement("div", {
+        className: "button"
+      }, _react.default.createElement("button", {
+        onClick: function onClick() {
+          return _onClick("/main-view");
+        }
+      }, "Back")));
     }
   }]);
 
@@ -30253,14 +30261,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, MainView);
 
-    _this = _super.call(this); // Initialize the state to an empty object so we can destructrue it later
+    //Call the superclass constructor so React can initialize it
+    _this = _super.call(this); //Initialize the state to an empty object so we can destructure it later
 
     _this.state = {
       movies: null,
       selectedMovie: null
     };
     return _this;
-  }
+  } //One of the "hooks" available in a React component
+
 
   _createClass(MainView, [{
     key: "componentDidMount",
@@ -30268,7 +30278,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       _axios.default.get('https://desolate-forest-59381.herokuapp.com/movies').then(function (response) {
-        // Assign the result to the state
+        //Assign the result to the state
         _this2.setState({
           movies: response.data
         });
@@ -30282,17 +30292,18 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         selectedMovie: movie
       });
-    } // this overrides the render() method of the superclass
+    } //This overrides the render() method of the superclass
+    //No need to call super() though, as it does nothing by default
 
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      // Before data is initially loaded
+      //If the state isn't initialized, this will throw on runtime before the data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie; // Before movies have been loaded
+          selectedMovie = _this$state.selectedMovie; //Before the movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -30305,9 +30316,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie.id,
           movie: movie,
-          onClick: function onClick(movie) {
-            return _this3.onMovieClick(movie);
-          }
+          onClick: _this3.onMovieClick
         });
       }));
     }
@@ -30478,7 +30487,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57562" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58795" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
