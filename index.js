@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 app.get(
   '/movies',
   (req, res) => {
-    Movies.find({}, { Title: 1, Description: 1 })
+    Movies.find()
       .then((movies) => {
         res.status(201).json(movies)
       })
