@@ -30,6 +30,14 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "uuid": "^8.2.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "sass": "^1.26.10"
   }
 }
