@@ -1,4 +1,7 @@
 import React from 'react';
+const goBack = () => {
+    window.open('/', '_self');
+}
 
 export class MovieView extends React.Component {
     constructor() {
@@ -32,7 +35,7 @@ export class MovieView extends React.Component {
                     <span className="value">{movie.Director.Name}</span>
                 </div>
                 <div className="button">
-                    <button onClick={() => onClick("/main-view")}>Back</button>
+                    <button onClick={goBack}> Back </button>
                 </div>
             </div>
         );

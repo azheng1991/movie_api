@@ -30146,6 +30146,10 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+var goBack = function goBack() {
+  window.open('/', '_self');
+};
+
 var MovieView = /*#__PURE__*/function (_React$Component) {
   _inherits(MovieView, _React$Component);
 
@@ -30166,7 +30170,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           movie = _this$props.movie,
-          _onClick = _this$props.onClick;
+          onClick = _this$props.onClick;
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
@@ -30200,10 +30204,8 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, movie.Director.Name)), _react.default.createElement("div", {
         className: "button"
       }, _react.default.createElement("button", {
-        onClick: function onClick() {
-          return _onClick("/main-view");
-        }
-      }, "Back")));
+        onClick: goBack
+      }, " Back ")));
     }
   }]);
 
@@ -30261,16 +30263,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, MainView);
 
-    //Call the superclass constructor so React can initialize it
-    _this = _super.call(this); //Initialize the state to an empty object so we can destructure it later
+    _this = _super.call(this); // Initialize the state to an empty object so we can destructrue it later
 
     _this.state = {
       movies: null,
       selectedMovie: null
     };
     return _this;
-  } //One of the "hooks" available in a React component
-
+  }
 
   _createClass(MainView, [{
     key: "componentDidMount",
@@ -30278,7 +30278,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       _axios.default.get('https://desolate-forest-59381.herokuapp.com/movies').then(function (response) {
-        //Assign the result to the state
+        // Assign the result to the state
         _this2.setState({
           movies: response.data
         });
@@ -30292,18 +30292,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         selectedMovie: movie
       });
-    } //This overrides the render() method of the superclass
-    //No need to call super() though, as it does nothing by default
+    } // this overrides the render() method of the superclass
 
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      //If the state isn't initialized, this will throw on runtime before the data is initially loaded
+      // Before data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie; //Before the movies have been loaded
+          selectedMovie = _this$state.selectedMovie; // Before movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -30316,7 +30315,9 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         return _react.default.createElement(_movieCard.MovieCard, {
           key: movie.id,
           movie: movie,
-          onClick: _this3.onMovieClick
+          onClick: function onClick(movie) {
+            return _this3.onMovieClick(movie);
+          }
         });
       }));
     }
@@ -30487,7 +30488,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58795" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50798" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
