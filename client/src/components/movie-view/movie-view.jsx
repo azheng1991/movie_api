@@ -1,38 +1,41 @@
 import React from 'react';
 
 export class MovieView extends React.Component {
+
     constructor() {
         super();
 
         this.state = {};
     }
+
     render() {
-        const { movie, onClick } = this.props;
+        const { movie } = this.props;
 
         if (!movie) return null;
 
         return (
-            <div className='movie-view'>
-                <div className='movie-title'>
-                    <div className='label'>Title</div>
-                    <div className='value'>{movie.Title}</div>
+            <div className="movie-view">
+                <img className="movie-poster" src={myFlixDB.movies.ImagePath} />
+                <div className="movie-title">
+                    <span className="label">Title: </span>
+                    <span className="value">{movies.Title}</span>
                 </div>
-                <div className='movie-description'>
-                    <div className='label'>Description</div>
-                    <div className='value'>{movie.Description}</div>
+                <div className="movie-description">
+                    <span className="label">Description: </span>
+                    <span className="value">{movies.Description}</span>
                 </div>
-                <img className='movie-poster' src={movie.ImageURL} />
 
-                <div className='movie-genre'>
-                    <div className='label'>Genre</div>
-                    <div className='value'>{movie.Genre.Name}</div>
+                <div className="movie-genre">
+                    <span className="label">Genre: </span>
+                    <span className="value">{movies.Genre.Name}</span>
                 </div>
-                <div className='movie-director'>
-                    <div className='label'>Director</div>
-                    <div className='value'>{movie.Director.Name}</div>
+                <div className="movie-director">
+                    <span className="label">Director: </span>
+                    <span className="value">{movies.Director.Name}</span>
                 </div>
-                <button onClick={() => onClick()}>Back</button>
             </div>
+
+
         );
     }
 }

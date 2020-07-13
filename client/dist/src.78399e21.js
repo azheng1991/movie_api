@@ -30162,44 +30162,38 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   _createClass(MovieView, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          movie = _this$props.movie,
-          _onClick = _this$props.onClick;
+      var movie = this.props.movie;
       if (!movie) return null;
       return _react.default.createElement("div", {
         className: "movie-view"
-      }, _react.default.createElement("div", {
-        className: "movie-title"
-      }, _react.default.createElement("div", {
-        className: "label"
-      }, "Title"), _react.default.createElement("div", {
-        className: "value"
-      }, movie.Title)), _react.default.createElement("div", {
-        className: "movie-description"
-      }, _react.default.createElement("div", {
-        className: "label"
-      }, "Description"), _react.default.createElement("div", {
-        className: "value"
-      }, movie.Description)), _react.default.createElement("img", {
+      }, _react.default.createElement("img", {
         className: "movie-poster",
-        src: movie.ImageURL
+        src: myFlixDB.movies.ImagePath
       }), _react.default.createElement("div", {
+        className: "movie-title"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Title: "), _react.default.createElement("span", {
+        className: "value"
+      }, movies.Title)), _react.default.createElement("div", {
+        className: "movie-description"
+      }, _react.default.createElement("span", {
+        className: "label"
+      }, "Description: "), _react.default.createElement("span", {
+        className: "value"
+      }, movies.Description)), _react.default.createElement("div", {
         className: "movie-genre"
-      }, _react.default.createElement("div", {
+      }, _react.default.createElement("span", {
         className: "label"
-      }, "Genre"), _react.default.createElement("div", {
+      }, "Genre: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Genre.Name)), _react.default.createElement("div", {
+      }, movies.Genre.Name)), _react.default.createElement("div", {
         className: "movie-director"
-      }, _react.default.createElement("div", {
+      }, _react.default.createElement("span", {
         className: "label"
-      }, "Director"), _react.default.createElement("div", {
+      }, "Director: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Name)), _react.default.createElement("button", {
-        onClick: function onClick() {
-          return _onClick();
-        }
-      }, "Back"));
+      }, movies.Director.Name)));
     }
   }]);
 
@@ -30494,7 +30488,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56571" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56696" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
