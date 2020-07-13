@@ -30096,11 +30096,13 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
   _createClass(MovieCard, [{
     key: "render",
     value: function render() {
-      // This is given to the <MovieCard/> component by the outer world
-      // which, in this case, is `MainView`, as `MainView` is what’s
-      // connected to your database via the movies endpoint of your API
-      var movie = this.props.movie;
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          _onClick = _this$props.onClick;
       return _react.default.createElement("div", {
+        onClick: function onClick() {
+          return _onClick(movie);
+        },
         className: "movie-card"
       }, movie.Title);
     }
@@ -30168,7 +30170,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "movie-view"
       }, _react.default.createElement("img", {
         className: "movie-poster",
-        src: myFlixDB.movies.ImagePath
+        src: movies.ImagePath
       }), _react.default.createElement("div", {
         className: "movie-title"
       }, _react.default.createElement("span", {
@@ -30251,17 +30253,14 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _classCallCheck(this, MainView);
 
-    //Call the superclass constructor
-    // so React can initialize it
-    _this = _super.call(this); // Initialize the state to an empty object so we can destructure it later
+    _this = _super.call(this); // Initialize the state to an empty object so we can destructrue it later
 
     _this.state = {
-      movie: null,
+      movies: null,
       selectedMovie: null
     };
     return _this;
-  } //One fot the "hooks" available in a react component
-
+  }
 
   _createClass(MainView, [{
     key: "componentDidMount",
@@ -30269,6 +30268,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       _axios.default.get('https://desolate-forest-59381.herokuapp.com/movies').then(function (response) {
+        // Assign the result to the state
         _this2.setState({
           movies: response.data
         });
@@ -30282,24 +30282,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       this.setState({
         selectedMovie: movie
       });
-    }
-  }, {
-    key: "onBackClick",
-    value: function onBackClick(movie) {
-      this.setState({
-        selectedMovie: null
-      });
-    }
+    } // this overrides the render() method of the superclass
+
   }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      // If the state isn't initialized, this will throw on runtime
-      // before the data is initially loaded
+      // Before data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie; //Before the movies have been loaded
+          selectedMovie = _this$state.selectedMovie; // Before movies have been loaded
 
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
@@ -30307,13 +30300,10 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       return _react.default.createElement("div", {
         className: "main-view"
       }, selectedMovie ? _react.default.createElement(_movieView.MovieView, {
-        movie: selectedMovie,
-        onClick: function onClick(button) {
-          return _this3.onBackClick();
-        }
+        movie: selectedMovie
       }) : movies.map(function (movie) {
         return _react.default.createElement(_movieCard.MovieCard, {
-          key: movie._id,
+          key: movie.id,
           movie: movie,
           onClick: function onClick(movie) {
             return _this3.onMovieClick(movie);
@@ -30488,7 +30478,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56696" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57562" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
