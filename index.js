@@ -33,7 +33,7 @@ app.use(morgan('common'))
 let auth = require('./auth')(app)
 
 //creates a list of allowed domains
-/*let allowedOrigins = ['http://localhost:1234']
+let allowedOrigins = ['http://localhost:1234']
 
 app.use(
   cors({
@@ -50,7 +50,7 @@ app.use(
     },
   })
 )
-*/
+
 
 app.get('/', (req, res) => {
   res.send('<h1>' + '<b>Welcome to myFlix !<b>' + '</h1>')
