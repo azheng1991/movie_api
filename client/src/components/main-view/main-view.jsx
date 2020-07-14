@@ -18,7 +18,7 @@ export class MainView extends React.Component {
             movies: null,
             selectedMovie: null,
             user: null,
-            register: true,
+            register: false,
         };
     }
 
@@ -43,7 +43,7 @@ export class MainView extends React.Component {
         });
     }
 
-    onLoggedIn(user) {
+    onLoggedIn(username) {
         this.setState({
             user,
 
@@ -58,7 +58,7 @@ export class MainView extends React.Component {
     }
 
     //testing
-    onSignedIn(user) {
+    onSignedIn(username) {
         this.setState({
             user: user,
             register: false,
@@ -76,7 +76,7 @@ export class MainView extends React.Component {
             return (
                 <LoginView
                     onClick={() => this.onRegistered()}
-                    onLoggedIn={(user) => this.onLoggedIn(user)}
+                    onLoggedIn={(username) => this.onLoggedIn(username)}
                 />
             );
 
@@ -84,7 +84,7 @@ export class MainView extends React.Component {
             return (
                 <RegistrationView
                     onClick={() => this.alreadyMember()}
-                    onSignedIn={(user) => this.onSignedIn(user)}
+                    onSignedIn={(username) => this.onSignedIn(username)}
                 />
             );
 

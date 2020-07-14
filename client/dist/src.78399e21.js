@@ -30440,10 +30440,22 @@ function LoginView(props) {
       return setUsername(e.target.value);
     }
   })), _react.default.createElement("label", null, "Password:", _react.default.createElement("input", {
-    type: "password",
+    type: "text",
     value: password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
+    }
+  })), _react.default.createElement("label", null, "Email:", _react.default.createElement("input", {
+    type: "text",
+    value: email,
+    onChange: function onChange(e) {
+      return setEmail(e.target.value);
+    }
+  })), _react.default.createElement("label", null, "Birthday:", _react.default.createElement("input", {
+    type: "text",
+    value: birthday,
+    onChange: function onChange(e) {
+      return setBirthday(e.target.value);
     }
   })), _react.default.createElement("button", {
     type: "button",
@@ -30494,7 +30506,7 @@ function RegistrationView(props) {
 
     /* then call props.onLoggedIn(username) */
 
-    props.onLoggedIn(username);
+    props.onSignedIn(username);
   };
 
   return _react.default.createElement("form", null, _react.default.createElement("label", null, "Username:", _react.default.createElement("input", {
@@ -32064,7 +32076,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       movies: null,
       selectedMovie: null,
       user: null,
-      register: true
+      register: false
     };
     return _this;
   }
@@ -32091,7 +32103,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "onLoggedIn",
-    value: function onLoggedIn(user) {
+    value: function onLoggedIn(username) {
       this.setState({
         user: user
       });
@@ -32107,7 +32119,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
   }, {
     key: "onSignedIn",
-    value: function onSignedIn(user) {
+    value: function onSignedIn(username) {
       this.setState({
         user: user,
         register: false
@@ -32134,16 +32146,16 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick() {
           return _this3.onRegistered();
         },
-        onLoggedIn: function onLoggedIn(user) {
-          return _this3.onLoggedIn(user);
+        onLoggedIn: function onLoggedIn(username) {
+          return _this3.onLoggedIn(username);
         }
       });
       if (register) return _react.default.createElement(_registrationView.RegistrationView, {
         onClick: function onClick() {
           return _this3.alreadyMember();
         },
-        onSignedIn: function onSignedIn(user) {
-          return _this3.onSignedIn(user);
+        onSignedIn: function onSignedIn(username) {
+          return _this3.onSignedIn(username);
         }
       }); //before the movies has been loaded
 
@@ -32339,7 +32351,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54724" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60331" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

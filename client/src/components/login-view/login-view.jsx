@@ -24,9 +24,25 @@ export function LoginView(props) {
             <label>
                 Password:
         <input
-                    type="password"
+                    type="text"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                />
+            </label>
+            <label>
+                Email:
+        <input
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+            </label>
+            <label>
+                Birthday:
+        <input
+                    type="text"
+                    value={birthday}
+                    onChange={(e) => setBirthday(e.target.value)}
                 />
             </label>
             <button type="button" onClick={handleSubmit}>
