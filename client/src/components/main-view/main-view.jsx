@@ -36,29 +36,28 @@ export class MainView extends React.Component {
             });
     }
 
-    onMovieClick(movie) {
+    onMovieClick = (movie) => {
         this.setState({
             selectedMovie: movie,
-
         });
     }
 
-    onLoggedIn(username) {
+    onLoggedIn = (username) => {
         this.setState({
-            user,
+            user: username
 
         });
     }
 
     //button to return to all movies view
-    onButtonClick() {
+    onButtonClick = () => {
         this.setState({
             selectedMovie: null,
         });
     }
 
     //testing
-    onSignedIn(username) {
+    onSignedIn = (username) => {
         this.setState({
             user: user,
             register: false,
@@ -69,23 +68,32 @@ export class MainView extends React.Component {
         this.setState({ register: true });
     }
 
+    onRegister = () => {
+        this.setState({ register: true });
+    }
+
+    onUserRegister = () => {
+        this.setState({ register: false });
+    }
+
+
+
     render() {
         const { movies, selectedMovie, user, register } = this.state;
 
-        if (!user && register === false) {
+        if (!user && !register) {
             return (
-                <RegistrationView
-                    onClick={this.alreadyMember}
-                    onSignedIn={this.onSignedIn(username)}
+                <LoginView
+                    onClick={this.onRegister}
+                    onLoggedIn={this.onLoggedIn}
                 />
             );
         }
 
-        if (register) {
+        if (register && !user) {
             return (
-                <LoginView
-                    onClick={this.onRegistered}
-                    onLoggedIn={this.onLoggedIn(username)}
+                <RegistrationView
+                    onSignedIn={this.onUserRegister}
                 />
             );
         }
@@ -107,7 +115,7 @@ export class MainView extends React.Component {
                                         <MovieCard
                                             key={movie._id}
                                             movie={movie}
-                                            onClick={this.onMovieClick(movie)}
+                                            onClick={this.onMovieClick}
                                         />
                                     </Col>
                                 ))
