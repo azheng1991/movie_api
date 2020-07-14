@@ -18,7 +18,7 @@ export class MainView extends React.Component {
             movies: null,
             selectedMovie: null,
             user: null,
-            register: false,
+            register: true,
         };
     }
 
@@ -26,7 +26,7 @@ export class MainView extends React.Component {
         axios
             .get('https://desolate-forest-59381.herokuapp.com/movies')
             .then((response) => {
-                // Assign the result to the state
+
                 this.setState({
                     movies: response.data,
                 });
@@ -39,14 +39,14 @@ export class MainView extends React.Component {
     onMovieClick(movie) {
         this.setState({
             selectedMovie: movie,
-            // userAction: null,
+
         });
     }
 
     onLoggedIn(user) {
         this.setState({
             user,
-            // userAction: null,
+
         });
     }
 
@@ -101,7 +101,7 @@ export class MainView extends React.Component {
                             />
                         ) : (
                                 movies.map((movie) => (
-                                    <Col key={movie._id} xs={12} sm={6} md={4}>
+                                    <Col key={movie._id} xs={10} sm={2} md={5}>
                                         <MovieCard
                                             key={movie._id}
                                             movie={movie}
