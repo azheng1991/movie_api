@@ -54,6 +54,10 @@ app.get('/', (req, res) => {
   res.send('<h1>' + '<b>Welcome to myFlix !<b>' + '</h1>')
 })
 
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
+
 // Get all MovieTitles with Description
 app.get(
   '/movies',
