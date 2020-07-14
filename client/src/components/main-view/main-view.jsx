@@ -64,9 +64,7 @@ export class MainView extends React.Component {
         });
     }
 
-    register() {
-        this.setState({ register: true });
-    }
+
 
     onRegister = () => {
         this.setState({ register: true });
