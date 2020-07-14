@@ -75,16 +75,16 @@ export class MainView extends React.Component {
         if (!user && register === false)
             return (
                 <LoginView
-                    onClick={() => this.onRegistered()}
-                    onLoggedIn={(username) => this.onLoggedIn(username)}
+                    onClick={this.onRegistered()}
+                    onLoggedIn={this.onLoggedIn(username)}
                 />
             );
 
         if (register)
             return (
                 <RegistrationView
-                    onClick={() => this.alreadyMember()}
-                    onSignedIn={(username) => this.onSignedIn(username)}
+                    onClick={this.alreadyMember()}
+                    onSignedIn={this.onSignedIn(username)}
                 />
             );
 
@@ -97,7 +97,7 @@ export class MainView extends React.Component {
                         {selectedMovie ? (
                             <MovieView
                                 movie={selectedMovie}
-                                onClick={() => this.onButtonClick()}
+                                onClick={this.onButtonClick}
                             />
                         ) : (
                                 movies.map((movie) => (
