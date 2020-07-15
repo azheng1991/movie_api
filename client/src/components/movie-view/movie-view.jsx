@@ -1,49 +1,54 @@
 import React from 'react';
-const goBack = () => {
-    window.open('/', '_self');
-}
+import Container from "react-bootstrap/Container";
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
 
-export class MovieView extends React.Component {
-    constructor() {
-        super();
+import "./movie-view.scss"
 
-        this.state = {};
-    }
+export function MovieView(props) {
 
-    render() {
-        const { movie, onClick } = this.props;
+    const { movie, previous } = props;
 
-        if (!movie) return null;
+    if (!movie) return null;
 
-        return (
-            <div className="movie-view">
-                <img className="movie-poster" src={movie.ImagePath} />
-                <div className="movie-title">
-                    <span className="label">Title: </span>
-                    <span className="value">{movie.Title}</span>
-                </div>
-                <div className="movie-description">
-                    <span className="label">Description </span>
-                    <span className="value">{movie.Description}</span>
-                </div>
-                <div className="movie-genre">
-                    <span className="label">Genre: </span>
-                    <span className="value">{movie.Genre.Name}</span>
-                </div>
-                <div className="movie-director">
-                    <span className="label">Director </span>
-                    <span className="value">{movie.Director.Name}</span>
-                </div>
-                <div className="button">
-                    <button onClick={goBack}> Back </button>
-                </div>
-                <Link to={`/directors/${movie.Director.Name}`}>
-                    <Button variant="link">Director</Button>
-                </Link>
-                <Link to={`/genres/${movie.Genre.Name}`}>
-                    <Button variant="link">Genre</Button>
-                </Link>
-            </div>
-        );
-    }
+    return (
+        <Container>
+            <Row>
+                <Col md={{ span: 6, offset: 3 }}>
+                    <div className="movie-view">
+                        <img className="movie-poster" style={{ textAlign: "center" }} src={movie.image} />
+                        <div className="movie-title">
+                            <span className="label">Title: </span>
+                            <span className="value">{movie.title}</span>
+                        </div>
+                        <div className="movie-description">
+                            <span className="label">Description: </span>
+                            <span className="value">{movie.description}</span>
+                        </div>
+
+                        <div className="movie-genre">
+                            <span className="label">Genre: </span>
+                            <span className="value">{movie.genre.name}</span>
+                        </div>
+                        <div className="movie-director">
+                            <span className="label">Director: </span>
+                            <span className="value">{movie.director.name}</span>
+                        </div>
+                        <Button variant="primary" className="back-button" onClick={() => previous(movie)}>
+                            Back</Button>
+                        <Link to={"/genres/" + movie.genre.name}>
+                            <Button variant="link">Genre</Button>
+                        </Link>
+                        <Link to={"/directors/" + movie.director.name}>
+                            <Button variant="link">Director</Button>
+                        </Link>
+                    </div>
+                </Col>
+            </Row>
+
+        </Container>
+
+    );
 }

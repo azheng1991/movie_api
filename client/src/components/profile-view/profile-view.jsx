@@ -1,100 +1,63 @@
-import React from 'react';
-//Routing
+import React, { useState } from 'react';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
-//Styling
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Card from 'react-bootstrap/Card';
+import "./profile-view.scss";
 
-export class ProfileView extends React.Component {
-    constructor(props) {
-        super(props);
+export function ProfileView(props) {
 
-        this.state = {
-            username: null,
-            password: null,
-            email: null,
-            birthday: null,
-            favoriteMovies: [],
-            movies: [],
-        };
-    }
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthdate, setBirthDate] = useState("");
 
-    componentDidMount() {
-        //authentication
-        const accessToken = localStorage.getItem('token');
-        this.getUser(accessToken);
-    }
+    const updateUserInfo = (e) => {
+        e.preventDefault();
+        const { user, token } = props;
+        const userURL = "https://cors-anywhere.herokuapp.com/https://desolate-forest-59381.herokuapp.com/users/" + user;
 
-    getUser(token) {
-        const username = localStorage.getItem('user');
-
-        axios
-            .get(`https://chrisflix.herokuapp.com/users/${username}`, {
-                headers: { Authorization: `Bearer ${token}` },
+        axios.put(userURL, {
+            Username: username,
+            Password: password,
+            Email: email,
+            BirthDate: birthdate
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(response => {
+                const data = response.data;
+                console.log(data) // the second argument '_self' is necessary so that the page will open in the current tab
             })
-
-            .then((res) => {
-                this.setState({
-                    Username: res.data.Username,
-                    Password: res.data.Password,
-                    Email: res.data.Email,
-                    Birthday: res.data.Birthday,
-                    FavoriteMovies: res.data.FavoriteMovies,
-                });
-            })
-            .catch(function (err) {
-                console.log(err);
+            .catch((e) => {
+                console.log("error registering the user");
             });
     }
 
-    render() {
-        const { movies } = this.props;
-        // const favoriteMovieList = movies.filter((movie) =>
-        //   this.state.favoriteMovies.includes(movie._id)
-        // );
-        return (
-            <div>
-                <Container>
-                    <h1>My Profile</h1>
-                    <br />
-                    <Card>
-                        <Card.Body>
-                            <Card.Text>Username: {this.state.Username}</Card.Text>
-                            <Card.Text>Password: xxxxxx</Card.Text>
-                            <Card.Text>Email: {this.state.Email}</Card.Text>
-                            <Card.Text>Birthday {this.state.Birthday}</Card.Text>
-              Favorite Movies:
-              {/* {favoriteMovieList.map((movie) => (
-                <div key={movie._id} className="fav-movies-button">
-                  <Link to={`/movies/${movie._id}`}>
-                    <Button variant="link">{movie.Title}</Button>
-                  </Link>
-                  <Button
-                    size="sm"
-                    onClick={(e) => this.deleteFavoriteMovie(movie._id)}
-                  >
-                    Remove Favorite
-                  </Button>
-                </div>
-              ))} */}
-                            <br />
-                            <br />
-                            <Link to={'/user/update'}>
-                                <Button variant="primary">Update Profile</Button>
-                                <br />
-                                <br />
-                            </Link>
-                            <Button onClick={() => this.deleteUser()}>Delete User</Button>
-                            <br />
-                            <br />
-                            <Link to={`/`}>Back</Link>
-                        </Card.Body>
-                    </Card>
-                </Container>
-            </div>
-        );
-    }
+    const { user, token } = props;
+    return (
+        <Container className="registrationForm">
+            <Form>
+                {console.log(localStorage.getItem("token"))}
+                <Form.Group controlId="formBasicUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" placeholder="Username" value={user.Username} onChange={e => setUsername(e.target.value)} />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" placeholder="Password" value={user.Password} onChange={e => setPassword(e.target.value)} />
+                </Form.Group>
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" placeholder="Enter email" value={user.Email} onChange={e => setEmail(e.target.value)} />
+                </Form.Group>
+                <Form.Group controlId="formBasicDob">
+                    <Form.Label>Date of Birth</Form.Label>
+                    <Form.Control type="date" value={user.BirthDate} onChange={e => setBirthDate(e.target.value)} />
+                </Form.Group>
+                <Button onClick={updateUserInfo}>Update Info</Button>
+            </Form>
+        </Container>
+    );
 }
