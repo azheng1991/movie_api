@@ -27,7 +27,7 @@ export class MainView extends Component {
     }
 
     getMovies = (token) => {
-        const endpoint = "https://desolate-forest-59381.herokuapp.com/movies";
+        const endpoint = "https://cors-anywhere.herokuapp.com/https://desolate-forest-59381.herokuapp.com/movies";
         axios.get(endpoint, {
             headers: { Authorization: `Bearer ${token}` }
         })

@@ -16,15 +16,18 @@ export function ProfileView(props) {
     const updateUserInfo = (e) => {
         e.preventDefault();
         const { user, token } = props;
-        const userURL = "https://cors-anywhere.herokuapp.com/https://desolate-forest-59381.herokuapp.com/users/" + user;
+        const userURL = "https://cors-anywhere.herokuapp.com/https://cors-anywhere.herokuapp.com/users/" + user;
 
         axios.put(userURL, {
+
             Username: username,
             Password: password,
             Email: email,
             BirthDate: birthdate
+
         }, {
             headers: { Authorization: `Bearer ${token}` }
+
         })
             .then(response => {
                 const data = response.data;
@@ -39,7 +42,6 @@ export function ProfileView(props) {
     return (
         <Container className="registrationForm">
             <Form>
-                {console.log(localStorage.getItem("token"))}
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control type="text" placeholder="Username" value={user.Username} onChange={e => setUsername(e.target.value)} />

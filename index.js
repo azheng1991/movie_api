@@ -10,6 +10,9 @@ const {
   check,
   validationResult
 } = require('express-validator');
+
+app.use(cors());
+
 var auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
@@ -19,7 +22,7 @@ const Users = Models.User;
 
 // var allowedOrigins = ['http://localhost:3000', 'http://testsite.com'];
 
-app.use(cors());
+
 
 /*connect locally
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
