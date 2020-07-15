@@ -30,9 +30,10 @@ app.use(bodyParser.json())
 // Logging with Morgan
 app.use(morgan('common'))
 
-add app.use(cors());
+app.use(cors());
 
 //creates a list of allowed domains
+/*
 let allowedOrigins = ['http://localhost:1234']
 
 app.use(
@@ -50,7 +51,7 @@ app.use(
     },
   })
 )
-
+*/
 
 require('./auth')(app)
 
