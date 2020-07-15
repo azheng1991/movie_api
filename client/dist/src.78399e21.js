@@ -30443,7 +30443,13 @@ function LoginView(props) {
     }).catch(function (e) {
       console.log('no such user');
     });
-  };
+  }; // const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     console.log(username, password);
+  //     // Send a request to the server for authentication then call props.onLoggedIn(username)
+  //     props.onLoggedIn(username);
+  // };
+
 
   return _react.default.createElement("form", null, _react.default.createElement("label", null, "Username:", _react.default.createElement("input", {
     type: "text",
@@ -32093,10 +32099,38 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this);
 
+    _this.getMovies = function (token) {
+      _axios.default.get('https://desolate-forest-59381.herokuapp.com/movies', {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (response) {
+        // Assign the result to the state
+        _this.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    };
+
     _this.onMovieClick = function (movie) {
       _this.setState({
         selectedMovie: movie
       });
+    };
+
+    _this.onLoggedIn = function (authData) {
+      console.log(authData);
+
+      _this.setState({
+        user: authData.user
+      });
+
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('user', authData.user);
+
+      _this.getMovies(authData.token);
     };
 
     _this.onButtonClick = function () {
@@ -32135,34 +32169,29 @@ var MainView = /*#__PURE__*/function (_React$Component) {
 
   _createClass(MainView, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      _axios.default.get('https://desolate-forest-59381.herokuapp.com/movies').then(function (response) {
-        _this2.setState({
-          movies: response.data
-        });
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  }, {
-    key: "onLoggedIn",
-    value: function onLoggedIn(authData) {
-      console.log(authData);
-      this.setState({
-        user: authData.user.Username
-      });
-      localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username);
-      this.getMovies(authData.token);
-    } //button to return to all movies view
+    value: function componentDidMount() {// axios
+      //     .get('https://desolate-forest-59381.herokuapp.com/movies')
+      //     .then((response) => {
+      //         this.setState({
+      //             movies: response.data,
+      //         });
+      //     })
+      //     .catch(function (error) {
+      //         console.log(error);
+      //     });
+    } // onLoggedIn(user) {
+    //   this.setState({
+    //     user,
+    //     // userAction: null,
+    //   });
+    // }
+    //button to return to all movies view
     //testing
 
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var _this$state = this.state,
           movies = _this$state.movies,
@@ -32201,7 +32230,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         }, _react.default.createElement(_movieCard.MovieCard, {
           key: movie._id,
           movie: movie,
-          onClick: _this3.onMovieClick
+          onClick: _this2.onMovieClick
         }));
       }))));
     }
@@ -32372,7 +32401,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60346" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61093" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
