@@ -12,16 +12,16 @@ export function DirectorView(props) {
                     <div className="movie-view">
                         <div className="movie-title">
                             <span className="label">Name: </span>
-                            <span className="value">{movie.director.name}</span>
+                            <span className="value">{movie.Director.Name}</span>
                         </div>
                         <div className="movie-description">
                             <span className="label">Biography: </span>
-                            <span className="value">{movie.director.bio}</span>
+                            <span className="value">{movie.Director.Bio}</span>
                         </div>
 
                         <div className="movie-genre">
                             <span className="label">BirthDate: </span>
-                            <span className="value">{movie.director.birth}</span>
+                            <span className="value">{movie.Director.Birth}</span>
                         </div>
                     </div>
                 </Col>

@@ -1,54 +1,59 @@
 import React from 'react';
-import Container from "react-bootstrap/Container";
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
-import "./movie-view.scss"
+const goBack = () => {
+    window.open('/', '_self');
+}
 
-export function MovieView(props) {
+export class MovieView extends React.Component {
+    constructor() {
+        super();
 
-    const { movie, previous } = props;
+        this.state = {};
+    }
 
-    if (!movie) return null;
+    render() {
+        const { movie, onClick } = this.props;
 
-    return (
-        <Container>
-            <Row>
-                <Col md={{ span: 6, offset: 3 }}>
-                    <div className="movie-view">
-                        <img className="movie-poster" style={{ textAlign: "center" }} src={movie.image} />
-                        <div className="movie-title">
-                            <span className="label">Title: </span>
-                            <span className="value">{movie.title}</span>
-                        </div>
-                        <div className="movie-description">
-                            <span className="label">Description: </span>
-                            <span className="value">{movie.description}</span>
-                        </div>
+        if (!movie) return null;
 
-                        <div className="movie-genre">
-                            <span className="label">Genre: </span>
-                            <span className="value">{movie.genre.name}</span>
-                        </div>
-                        <div className="movie-director">
-                            <span className="label">Director: </span>
-                            <span className="value">{movie.director.name}</span>
-                        </div>
-                        <Button variant="primary" className="back-button" onClick={() => previous(movie)}>
-                            Back</Button>
-                        <Link to={"/genres/" + movie.genre.name}>
-                            <Button variant="link">Genre</Button>
-                        </Link>
-                        <Link to={"/directors/" + movie.director.name}>
-                            <Button variant="link">Director</Button>
-                        </Link>
-                    </div>
-                </Col>
-            </Row>
+        return (
+            <div className="movie-view">
+                <img className="movie-poster" src={movie.ImagePath} />
+                <div className="movie-title">
+                    <span className="label">Title: </span>
+                    <span className="value">{movie.Title}</span>
+                </div>
+                <div className="movie-description">
+                    <span className="label">Description </span>
+                    <span className="value">{movie.Description}</span>
+                </div>
+                <div className="movie-genre">
+                    <span className="label">Genre: </span>
+                    <span className="value">{movie.Genre.Name}</span>
 
-        </Container>
+                </div>
+                <div className="movie-director">
+                    <span className="label">Director </span>
+                    <span className="value">{movie.Director.Name}</span>
 
-    );
+                </div>
+                <div className="button">
+                    <button onClick={goBack}> Back </button>
+                </div>
+                <div className="director button">
+                    <Link to={`/directors/${movie.Director.Name}`}>
+                        <Button variant="link">Director</Button>
+                    </Link>
+                </div>
+                <div className="genre button">
+                    <Link to={`/genres/${movie.Genre.Name}`}>
+                        <Button variant="link">Genre</Button>
+                    </Link>
+                </div>
+            </div >
+        );
+    }
 }

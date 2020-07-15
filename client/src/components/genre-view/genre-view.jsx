@@ -14,11 +14,11 @@ export function GenreView(props) {
 
                         <div className="movie-title">
                             <span className="label">Genre: </span>
-                            <span className="value">{movie.genre.name}</span>
+                            <span className="value">{movie.Genre.Name}</span>
                         </div>
                         <div className="movie-description">
                             <span className="label">Description: </span>
-                            <span className="value">{movie.genre.description}</span>
+                            <span className="value">{movie.Genre.Description}</span>
                         </div>
 
                     </div>

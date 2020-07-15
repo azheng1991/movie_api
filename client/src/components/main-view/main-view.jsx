@@ -13,6 +13,8 @@ import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { RegistrationView } from '../registration-view/registration-view';
+import { UpdateView } from '../profile-view/update-view';
+import './main-view.scss';
 import Button from 'react-bootstrap/Button';
 
 export class MainView extends Component {
@@ -27,7 +29,7 @@ export class MainView extends Component {
     }
 
     getMovies = (token) => {
-        const endpoint = "https://cors-anywhere.herokuapp.com/https://desolate-forest-59381.herokuapp.com/movies";
+        const endpoint = "https://desolate-forest-59381.herokuapp.com/movies";
         axios.get(endpoint, {
             headers: { Authorization: `Bearer ${token}` }
         })
@@ -118,12 +120,12 @@ export class MainView extends Component {
                             } />
                             <Route exact path="/genres/:name" render={({ match }) => {
                                 return (
-                                    <GenreView movie={movies.find(m => m.genre.name === match.params.name)} />
+                                    <GenreView movie={movies.find(m => m.Genre.Name === match.params.name)} />
                                 )
                             }} />
                             <Route exact path="/directors/:name" render={({ match }) => {
                                 return (
-                                    <DirectorView movie={movies.find(m => m.director.name === match.params.name)} />
+                                    <DirectorView movie={movies.find(m => m.Director.Name === match.params.name)} />
                                 )
                             }} />
 
@@ -132,6 +134,8 @@ export class MainView extends Component {
                                     <ProfileView user={user} token={localStorage.getItem("token")} />
                                 )
                             }} />
+                            <Route exact path="/update/:Username" render={() => <UpdateView user={user} />} />
+
                         </Row>
                     </Container>
                 </Router>

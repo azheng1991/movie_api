@@ -16,7 +16,7 @@ export const RegistrationView = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const loginUrl = "https://cors-anywhere.herokuapp.com/https://desolate-forest-59381.herokuapp.com/users";
+        const loginUrl = "https://desolate-forest-59381.herokuapp.com/users";
         axios.post(loginUrl, {
             Username: username,
             Password: password,
@@ -56,7 +56,7 @@ export const RegistrationView = (props) => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicChecbox">
-                    <Form.Check type="checkbox" label="Check to see if you're not a robot" />
+                    <Form.Check type="checkbox" label="Check to make sure you're not a robot" />
                 </Form.Group>
                 <Button variant="primary" type="submit" onClick={handleSubmit}>
                     Register
