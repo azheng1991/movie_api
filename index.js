@@ -1,23 +1,25 @@
 
 const express = require("express");
 const app = express();
-const express = require('express'),
-  bodyParser = require('body-parser'),
-  morgan = require('morgan'),
-  uuid = require('uuid'),
-  mongoose = require('mongoose'),
-  cors = require('cors'),
-  Models = require('./models.js')
+const morgan = require("morgan");
+const bodyParser = require('body-parser')
+const mongoose = require("mongoose");
+const Models = require("./models.js");
+const cors = require("cors");
+const {
+  check,
+  validationResult
+} = require('express-validator');
+var auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 
-const passport = require('passport')
-require('./passport')
+const Movies = Models.Movie;
+const Users = Models.User;
 
-const { check, validationResult } = require('express-validator')
+// var allowedOrigins = ['http://localhost:3000', 'http://testsite.com'];
 
-const app = express()
-const Movies = Models.Movie
-const Users = Models.User
-
+app.use(cors());
 
 /*connect locally
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
@@ -27,17 +29,16 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 //Connect to online database hosted on MongoDB Atlas
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+app.use(bodyParser.json());
 
+app.use(express.static("public"));
 
-app.use(bodyParser.json())
-// Logging with Morgan
-app.use(morgan('common'))
+app.use(morgan("common"));
 
-app.use(cors())
-
-let auth = require('./auth')(app)
-
-
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
@@ -250,13 +251,6 @@ app.delete("/users/:Username", passport.authenticate('jwt', {
     console.error(err);
     res.status(500).send("Error: " + err);
   })
-});
-
-
-//error-logging function
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
 });
 
 var port = process.env.PORT || 3000;
