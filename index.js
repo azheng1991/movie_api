@@ -30,10 +30,8 @@ app.use(bodyParser.json())
 // Logging with Morgan
 app.use(morgan('common'))
 
-app.use(cors());
-
+let auth = require('./auth')(app)
 //creates a list of allowed domains
-/*
 let allowedOrigins = ['http://localhost:1234']
 
 app.use(
@@ -51,11 +49,6 @@ app.use(
     },
   })
 )
-*/
-
-require('./auth')(app)
-
-
 
 app.get('/', (req, res) => {
   res.send('<h1>' + '<b>Welcome to myFlix !<b>' + '</h1>')
@@ -68,7 +61,7 @@ app.get('/documentation', (req, res) => {
 // Get all MovieTitles with Description
 app.get(
   '/movies',
-  passport.authenticate('jwt', { session: false }), (req, res) => {
+  (req, res) => {
     Movies.find()
       .then((movies) => {
         res.status(201).json(movies)
@@ -83,7 +76,7 @@ app.get(
 // Get a Movie by Title
 app.get(
   '/movies/:Title',
-  passport.authenticate('jwt', { session: false }), (req, res) => {
+  (req, res) => {
     Movies.findOne({ Title: req.params.Title })
       .then((movies) => {
         res.status(201).json(movies)
@@ -98,7 +91,7 @@ app.get(
 // Get a Genre by Name
 app.get(
   '/movies/genres/:Name',
-  passport.authenticate('jwt', { session: false }), (req, res) => {
+  (req, res) => {
     Movies.findOne({ 'Genre.Name': req.params.Name })
       .then((movies) => {
         res.status(201).json(movies.Genre)
@@ -113,7 +106,7 @@ app.get(
 // Get a Director by Name
 app.get(
   '/movies/directors/:Name',
-  passport.authenticate('jwt', { session: false }), (req, res) => {
+  (req, res) => {
     Movies.findOne({ 'Director.Name': req.params.Name })
       .then((movies) => {
         res.status(201).json(movies.Director)
