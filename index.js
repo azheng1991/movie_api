@@ -11,6 +11,8 @@ const {
   validationResult
 } = require('express-validator');
 
+
+
 app.use(cors());
 
 var auth = require('./auth')(app);
