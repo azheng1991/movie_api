@@ -32124,11 +32124,11 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       console.log(authData);
 
       _this.setState({
-        user: authData.user
+        user: authData.user.Username
       });
 
       localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user);
+      localStorage.setItem('user', authData.user.Username);
 
       _this.getMovies(authData.token);
     };
@@ -32401,7 +32401,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61093" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62037" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

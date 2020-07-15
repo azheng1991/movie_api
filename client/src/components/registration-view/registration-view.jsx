@@ -1,54 +1,72 @@
 import React, { useState } from "react";
+import "./registration-view.scss";
+import axios from "axios";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import logo from "../../images/logo2.png";
 
 export function RegistrationView(props) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState('');
-    const [birthday, setBirthday] = useState('');
+    const [username, createUsername] = useState("");
+    const [password, createPassword] = useState("");
+    const [email, createEmail] = useState("");
+    const [birthday, createBirthday] = useState("");
 
-    const handleSubmit = e => {
+    const handleRegister = (e) => {
         e.preventDefault();
-        props.onSignedIn();
+        axios
+            .post("https://desolate-forest-59381.herokuapp.com/login", {
+                Username: username,
+                Password: password,
+                Email: email,
+                Birthday: birthday
+            })
+            .then((response) => {
+                const data = response.data;
+                console.log(data);
+                window.open("/", "_self"); // the second argument '_self' is necessary so that the page will open in the current tab
+            })
+            .catch((e) => {
+                console.log("error registering the user");
+            });
     };
 
-
     return (
-        <form>
-            <label>
-                Username:
-        <input
+        <Form className="registration-form">
+            <img src={logo} alt="logo" style={{ width: "300px" }} />
+            <Form.Group controlId="formBasicUsername">
+                <Form.Control
                     type="text"
+                    placeholder="Enter username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => createUsername(e.target.value)}
                 />
-            </label>
-            <label>
-                Password:
-        <input
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+                <Form.Control
                     type="text"
+                    placeholder="Enter Password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => createPassword(e.target.value)}
                 />
-            </label>
-            <label>
-                Email:
-        <input
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+                <Form.Control
                     type="text"
+                    placeholder="Enter Email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => createEmail(e.target.value)}
                 />
-            </label>
-            <label>
-                Birthday:
-        <input
+            </Form.Group>
+            <Form.Group controlId="formBasicBirthday">
+                <Form.Control
                     type="text"
+                    placeholder="Enter Date of Birth"
                     value={birthday}
-                    onChange={(e) => setBirthday(e.target.value)}
+                    onChange={(e) => createBirthday(e.target.value)}
                 />
-            </label>
-            <button type="button" onClick={handleSubmit}>
+            </Form.Group>
+            <Button variant="primary" type="submit" onClick={handleRegister}>
                 Register
-      </button>
-        </form>
+      </Button>
+        </Form>
     );
-}
