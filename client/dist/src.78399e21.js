@@ -32099,12 +32099,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
     };
 
-    _this.onLoggedIn = function (username) {
-      _this.setState({
-        user: username
-      });
-    };
-
     _this.onButtonClick = function () {
       _this.setState({
         selectedMovie: null
@@ -32151,6 +32145,17 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       }).catch(function (error) {
         console.log(error);
       });
+    }
+  }, {
+    key: "onLoggedIn",
+    value: function onLoggedIn(authData) {
+      console.log(authData);
+      this.setState({
+        user: authData.user.Username
+      });
+      localStorage.setItem('token', authData.token);
+      localStorage.setItem('user', authData.user.Username);
+      this.getMovies(authData.token);
     } //button to return to all movies view
     //testing
 
@@ -32367,7 +32372,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54388" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60346" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
