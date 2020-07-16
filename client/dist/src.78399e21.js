@@ -36343,8 +36343,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var movies = this.props.movies; // const favoriteMovieList = movies.filter((movie) =>
-      //   this.state.favoriteMovies.includes(movie._id)
+      var movies = this.props.movies; // const favoriteMovieList = movies.filter((FavoriteMovie) =>
+      //     this.state.favoriteMovies.includes(movie._id)
       // );
 
       return _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.Username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.Email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.Birthday), "Favorite Movies:", _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
@@ -50170,7 +50170,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56355" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58947" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

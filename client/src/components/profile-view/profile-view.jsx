@@ -56,8 +56,8 @@ export class ProfileView extends React.Component {
 
     render() {
         const { movies } = this.props;
-        // const favoriteMovieList = movies.filter((movie) =>
-        //   this.state.favoriteMovies.includes(movie._id)
+        // const favoriteMovieList = movies.filter((FavoriteMovie) =>
+        //     this.state.favoriteMovies.includes(movie._id)
         // );
         return (
             <div>
@@ -71,19 +71,19 @@ export class ProfileView extends React.Component {
                             <Card.Text>Email: {this.state.Email}</Card.Text>
                             <Card.Text>Birthday {this.state.Birthday}</Card.Text>
               Favorite Movies:
-              {/* {favoriteMovieList.map((movie) => (
-                <div key={movie._id} className="fav-movies-button">
-                  <Link to={`/movies/${movie._id}`}>
-                    <Button variant="link">{movie.Title}</Button>
-                  </Link>
-                  <Button
-                    size="sm"
-                    onClick={(e) => this.deleteFavoriteMovie(movie._id)}
-                  >
-                    Remove Favorite
+              {/* {favoriteMovieList.map((FavoriteMovie) => (
+                                <div key={movie._id} className="fav-movies-button">
+                                    <Link to={`/movies/${movie._id}`}>
+                                        <Button variant="link">{movie.Title}</Button>
+                                    </Link>
+                                    <Button
+                                        size="sm"
+                                        onClick={(e) => this.deleteFavoriteMovie(movie._id)}
+                                    >
+                                        Remove Favorite
                   </Button>
-                </div>
-              ))} */}
+                                </div>
+                            ))} */}
                             <br />
                             <br />
                             <Link to={'/update/:Username'}>
