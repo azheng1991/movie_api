@@ -36284,12 +36284,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var deleteUser = function deleteUser() {
-  window.open('/', '_self');
-};
-
-var users = Models.User;
-
 var ProfileView = /*#__PURE__*/function (_React$Component) {
   _inherits(ProfileView, _React$Component);
 
@@ -36306,8 +36300,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       password: null,
       email: null,
       birthday: null,
-      favoriteMovies: [],
-      movies: []
+      favoriteMovies: [] // movies: []
+
     };
     return _this;
   }
@@ -36331,15 +36325,47 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           Authorization: "Bearer ".concat(token)
         }
       }).then(function (res) {
+        console.log(res.data);
+
         _this2.setState({
-          Username: res.data.Username,
-          Password: res.data.Password,
-          Email: res.data.Email,
-          Birthday: res.data.Birthday,
-          FavoriteMovies: res.data.FavoriteMovies
+          username: res.data.Username,
+          password: res.data.Password,
+          email: res.data.Email,
+          birthday: res.data.Birthday,
+          favoriteMovies: res.data.FavoriteMovies
         });
       }).catch(function (err) {
         console.log(err);
+      });
+    }
+  }, {
+    key: "deleteFavoriteMovie",
+    value: function deleteFavoriteMovie(movieId) {
+      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Movies/").concat(movieId), {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        }
+      }).then(function () {
+        document.location.reload(true);
+      }).then(function () {
+        alert('Movie successfully deleted from favorites');
+      }).catch(function (e) {
+        alert('Movie could not be deleted from favorites ' + e);
+      });
+    }
+  }, {
+    key: "deleteUser",
+    value: function deleteUser() {
+      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(localStorage.getItem('user')), {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        }
+      }).then(function () {
+        document.location.reload(true);
+      }).then(function () {
+        alert('User successfully deleted from registry');
+      }).catch(function (e) {
+        alert('User could not be deleted from registry ' + e);
       });
     }
   }, {
@@ -36347,11 +36373,11 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var movies = this.props.movies;
-      var favoriteMovieList = users.filter(function (FavoriteMovie) {
-        return _this3.state.favoriteMovies.includes(movie._id);
-      });
-      return _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.Username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.Email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.Birthday), "Favorite Movies:", favoriteMovieList.map(function (FavoriteMovie) {
+      var movies = this.state.movies; // const favoriteMovieList = users.filter((FavoriteMovie) =>
+      //     this.state.favoriteMovies.includes(movie._id)
+      // );
+
+      return _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), "Favorite Movies:", this.state.favoriteMovies.length === 0 && _react.default.createElement("p", null, "You have no favorite movies."), this.state.favoriteMovies.map(function (FavoriteMovies) {
         return _react.default.createElement("div", {
           key: movie._id,
           className: "fav-movies-button"
@@ -36370,7 +36396,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_Button.default, {
         variant: "primary"
       }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
-        onClick: deleteUser
+        onClick: deleteUser()
       }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, "Back")))));
@@ -50188,7 +50214,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59880" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64205" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
