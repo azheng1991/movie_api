@@ -8,8 +8,8 @@ import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 
 export class ProfileView extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             username: null,
             password: null,
@@ -27,7 +27,7 @@ export class ProfileView extends React.Component {
     getUser(token) {
         const username = localStorage.getItem('user');
         axios
-            .get(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
+            .get(`https://desolate-forest-59381.herokuapp.com/users`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((res) => {
@@ -117,7 +117,7 @@ export class ProfileView extends React.Component {
                                 <br />
                                 <br />
                             </Link>
-                            <Button onClick={deleteUser()}>Delete User</Button>
+                            <Button onClick={this.deleteUser()}>Delete User</Button>
                             <br />
                             <br />
                             <Link to={`/`}>Back</Link>

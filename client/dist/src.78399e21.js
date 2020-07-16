@@ -36289,12 +36289,12 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(ProfileView);
 
-  function ProfileView(props) {
+  function ProfileView() {
     var _this;
 
     _classCallCheck(this, ProfileView);
 
-    _this = _super.call(this, props);
+    _this = _super.call(this);
     _this.state = {
       username: null,
       password: null,
@@ -36320,7 +36320,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       var username = localStorage.getItem('user');
 
-      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
+      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users", {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -36396,7 +36396,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_Button.default, {
         variant: "primary"
       }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
-        onClick: deleteUser()
+        onClick: this.deleteUser()
       }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, "Back")))));
@@ -50214,7 +50214,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64205" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50862" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
