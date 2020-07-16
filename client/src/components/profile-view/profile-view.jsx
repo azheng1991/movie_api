@@ -12,6 +12,10 @@ const deleteUser = () => {
     window.open('/', '_self');
 }
 
+const Models = require("movie_api/models.js");
+const users = Models.User;
+
+
 export class ProfileView extends React.Component {
     constructor(props) {
         super(props);
@@ -56,9 +60,9 @@ export class ProfileView extends React.Component {
 
     render() {
         const { movies } = this.props;
-        // const favoriteMovieList = movies.filter((FavoriteMovie) =>
-        //     this.state.favoriteMovies.includes(movie._id)
-        // );
+        const favoriteMovieList = users.filter((FavoriteMovie) =>
+            this.state.favoriteMovies.includes(movie._id)
+        );
         return (
             <div>
                 <Container>
@@ -71,7 +75,7 @@ export class ProfileView extends React.Component {
                             <Card.Text>Email: {this.state.Email}</Card.Text>
                             <Card.Text>Birthday {this.state.Birthday}</Card.Text>
               Favorite Movies:
-              {/* {favoriteMovieList.map((FavoriteMovie) => (
+              {favoriteMovieList.map((FavoriteMovie) => (
                                 <div key={movie._id} className="fav-movies-button">
                                     <Link to={`/movies/${movie._id}`}>
                                         <Button variant="link">{movie.Title}</Button>
@@ -83,7 +87,7 @@ export class ProfileView extends React.Component {
                                         Remove Favorite
                   </Button>
                                 </div>
-                            ))} */}
+                            ))}
                             <br />
                             <br />
                             <Link to={'/update/:Username'}>
