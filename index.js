@@ -10,9 +10,7 @@ const {
   validationResult
 } = require('express-validator');
 
-
-
-app.use(cors(*));
+app.use(cors());
 
 var auth = require('./auth')(app);
 const passport = require('passport');
@@ -49,7 +47,7 @@ app.get("/", (req, res) => {
 });
 
 //Return a list of ALL movies to the user
-app.get("/movies", {
+app.get("/movies", passport.authenticate('jwt', {
   session: false
 }), (req, res) => {
   Movies.find()
