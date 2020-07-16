@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 export class ProfileView extends React.Component {
 
-    constructor() {
+    constructor(user) {
         super();
         this.state = {
             username: null,
@@ -36,19 +36,21 @@ export class ProfileView extends React.Component {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then(response => {
+                console.log(response.data);
                 this.setState({
                     userData: response.data,
                     username: response.data.Username,
                     password: response.data.Password,
                     email: response.data.Email,
                     birthday: response.data.Birthday,
-                    favoriteMovies: response.data.Favourites
+                    favoriteMovies: response.data.FavoriteMovies
                 });
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
+
 
     deleteMovieFromFavs(event, favoriteMovie) {
         event.preventDefault();
@@ -88,7 +90,7 @@ export class ProfileView extends React.Component {
                                 }
                                 {favoriteMovies.length > 0 &&
                                     <ul>
-                                        {favoriteMovies.map(favoriteMovie =>
+                                        {favoriteMovies.map(FavoriteMovie =>
                                             (<li key={favoriteMovie}>
                                                 <p className="favoriteMovies">
                                                     {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
