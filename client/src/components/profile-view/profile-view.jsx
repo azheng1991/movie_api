@@ -18,7 +18,7 @@ export class ProfileView extends React.Component {
             email: null,
             birthday: null,
             userData: null,
-            favoriteMovies: []
+            FavoriteMovies: []
         };
     }
 
@@ -52,10 +52,10 @@ export class ProfileView extends React.Component {
     }
 
 
-    deleteMovieFromFavs(event, favoriteMovie) {
+    deleteMovieFromFavs(event, FavoriteMovie) {
         event.preventDefault();
         console.log(favoriteMovie);
-        axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${localStorage.getItem('user')}/Favorites/${favoriteMovie}`, {
+        axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${localStorage.getItem('user')}/movies/${favoriteMovie}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then(response => {
@@ -85,12 +85,12 @@ export class ProfileView extends React.Component {
                         <ListGroup.Item>Birthday: {birthday && birthday.slice(0, 10)}</ListGroup.Item>
                         <ListGroup.Item>Favorite Movies:
              <div>
-                                {favoriteMovies.length === 0 &&
+                                {FavoriteMovies.length === 0 &&
                                     <div className="value">No Favorite Movies have been added</div>
                                 }
-                                {favoriteMovies.length > 0 &&
+                                {FavoriteMovies.length > 0 &&
                                     <ul>
-                                        {favoriteMovies.map(FavoriteMovie =>
+                                        {FavoriteMovies.map(FavoriteMovies =>
                                             (<li key={favoriteMovie}>
                                                 <p className="favoriteMovies">
                                                     {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}

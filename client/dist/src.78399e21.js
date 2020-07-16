@@ -37425,7 +37425,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       email: null,
       birthday: null,
       userData: null,
-      favoriteMovies: []
+      FavoriteMovies: []
     };
     return _this;
   }
@@ -37468,13 +37468,13 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "deleteMovieFromFavs",
-    value: function deleteMovieFromFavs(event, favoriteMovie) {
+    value: function deleteMovieFromFavs(event, FavoriteMovie) {
       var _this3 = this;
 
       event.preventDefault();
       console.log(favoriteMovie);
 
-      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(localStorage.getItem('user'), "/Favorites/").concat(favoriteMovie), {
+      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(localStorage.getItem('user'), "/movies/").concat(favoriteMovie), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem('token'))
         }
@@ -37509,9 +37509,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, "My Profile"), _react.default.createElement(_ListGroup.default, {
         className: "list-group-flush",
         variant: "flush"
-      }, _react.default.createElement(_ListGroup.default.Item, null, "Username: ", username), _react.default.createElement(_ListGroup.default.Item, null, "Password:******* "), _react.default.createElement(_ListGroup.default.Item, null, "Email: ", email), _react.default.createElement(_ListGroup.default.Item, null, "Birthday: ", birthday && birthday.slice(0, 10)), _react.default.createElement(_ListGroup.default.Item, null, "Favorite Movies:", _react.default.createElement("div", null, favoriteMovies.length === 0 && _react.default.createElement("div", {
+      }, _react.default.createElement(_ListGroup.default.Item, null, "Username: ", username), _react.default.createElement(_ListGroup.default.Item, null, "Password:******* "), _react.default.createElement(_ListGroup.default.Item, null, "Email: ", email), _react.default.createElement(_ListGroup.default.Item, null, "Birthday: ", birthday && birthday.slice(0, 10)), _react.default.createElement(_ListGroup.default.Item, null, "Favorite Movies:", _react.default.createElement("div", null, FavoriteMovies.length === 0 && _react.default.createElement("div", {
         className: "value"
-      }, "No Favorite Movies have been added"), favoriteMovies.length > 0 && _react.default.createElement("ul", null, favoriteMovies.map(function (FavoriteMovie) {
+      }, "No Favorite Movies have been added"), FavoriteMovies.length > 0 && _react.default.createElement("ul", null, FavoriteMovies.map(function (FavoriteMovies) {
         return _react.default.createElement("li", {
           key: favoriteMovie
         }, _react.default.createElement("p", {
@@ -50242,7 +50242,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51893" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55417" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
