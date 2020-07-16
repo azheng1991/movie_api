@@ -12,7 +12,7 @@ const {
 
 
 
-app.use(cors());
+app.use(cors(*));
 
 var auth = require('./auth')(app);
 const passport = require('passport');
