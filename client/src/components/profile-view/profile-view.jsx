@@ -7,99 +7,67 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
 
-const accessToken = localStorage.getItem('token');
-const username = localStorage.getItem('user');
-const { movies } = this.state;
 
 export class ProfileView extends React.Component {
     constructor() {
         super();
-        this.state = {
-            username: null,
-            password: null,
-            email: null,
-            birthday: null,
-            favoriteMovies: [],
-            // movies: []
-        };
-    }
-    componentDidMount() {
-        //authentication
-        this.getUser(accessToken);
+    };
+}
+componentDidMount() {
 
-        getUser(accesstoken) {
 
-            axios
-                .get(`https://desolate-forest-59381.herokuapp.com/users/username`, {
-                    headers: { Authorization: `Bearer ${token}` },
-                })
-                .then((res) => {
-                    console.log(res.data)
-                    this.setState({
-                        username: res.data.Username,
-                        password: res.data.Password,
-                        email: res.data.Email,
-                        birthday: res.data.Birthday,
-                        favoriteMovies: res.data.FavoriteMovies,
-                    });
-                })
-                .catch(function (err) {
-                    console.log(err);
-                });
-        }
+    addFavoriteMovie(movieId) {
 
-        addFavoriteMovie(movieId) {
-
-            axios.post(`https://desolate-forest-59381.herokuapp.com/users/username/Movies/{movies_Id}`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            })
-                .then(() => {
-                    document.location.reload(true);
-                })
-                .then(() => {
-                    alert('Movie successfully added to favorites');
-                })
-
-                .catch(e => {
-                    alert('Movie could not be added to favorites ' + e)
-                });
-        }
-
-    }
-
-    deleteFavoriteMovie(movieId) {
-
-        axios.delete(`https://desolate-forest-59381.herokuapp.com/users/username/Movies/{movieId}`, {
+        axios.post(`https://desolate-forest-59381.herokuapp.com/users/:Username/Movies/:MovieID}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then(() => {
                 document.location.reload(true);
             })
             .then(() => {
-                alert('Movie successfully deleted from favorites');
+                alert('Movie successfully added to favorites');
             })
 
             .catch(e => {
-                alert('Movie could not be deleted from favorites ' + e)
+                alert('Movie could not be added to favorites ' + e)
             });
     }
 
-    deleteUser() {
+}
 
-        axios.delete(`https://desolate-forest-59381.herokuapp.com/users/username`, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+deleteFavoriteMovie(movieId) {
+
+    axios.delete(`https://desolate-forest-59381.herokuapp.com/users/:Username/Movies/:MovieID`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+        .then(() => {
+            document.location.reload(true);
         })
-            .then(() => {
-                document.location.reload(true);
-            })
-            .then(() => {
-                alert('User successfully deleted from registry');
-            })
+        .then(() => {
+            alert('Movie successfully deleted from favorites');
+        })
 
-            .catch(e => {
-                alert('User could not be deleted from registry ' + e)
-            });
-    }
+        .catch(e => {
+            alert('Movie could not be deleted from favorites ' + e)
+        });
+}
+
+deleteUser() {
+
+    axios.delete(`https://desolate-forest-59381.herokuapp.com/users/:Username`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
+        .then(() => {
+            document.location.reload(true);
+        })
+        .then(() => {
+            alert('User successfully deleted from registry');
+        })
+
+        .catch(e => {
+            alert('User could not be deleted from registry ' + e)
+        });
+}
 }
 
 
@@ -109,6 +77,9 @@ render() {
     // const favoriteMovieList = users.filter((FavoriteMovie) =>
     //     this.state.favoriteMovies.includes(movie._id)
     // );
+
+    const { user } = this.props
+
     return (
         <div>
             <Container>
@@ -116,15 +87,15 @@ render() {
                 <br />
                 <Card>
                     <Card.Body>
-                        <Card.Text>Username: {this.state.username}</Card.Text>
+                        <Card.Text>Username: {this.props.user.Username}</Card.Text>
                         <Card.Text>Password: xxxxxx</Card.Text>
-                        <Card.Text>Email: {this.state.email}</Card.Text>
-                        <Card.Text>Birthday {this.state.birthday}</Card.Text>
+                        <Card.Text>Email: {this.props.user.Email}</Card.Text>
+                        <Card.Text>Birthday {this.props.user.Birthday}</Card.Text>
               Favorite Movies:
-              if (this.state.favoriteMovies.length === 0) {
+              if (this.props.user.FavoriteMovies.length === 0) {
                             <p>You have no favorite movies.</p>}
                         {/* return an array of the favoriteMovies using the map function on the FavoriteMovies state   */}
-                    else {this.state.favoriteMovies.map((FavoriteMovies) => (
+                    else {this.props.user.FavoriteMovies.map((FavoriteMovie) => (
                             <div key={movie._id} className="fav-movies-button">
                                 <Link to={`/movies/:movie._id`}>
                                     <Button variant="link">{movie.Title}</Button>
