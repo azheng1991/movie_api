@@ -27,7 +27,7 @@ export class ProfileView extends React.Component {
     getUser(token) {
         const username = localStorage.getItem('user');
         axios
-            .get(`https://desolate-forest-59381.herokuapp.com/users`, {
+            .get(`https://desolate-forest-59381.herokuapp.com/users/:Username`, {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((res) => {

@@ -36320,7 +36320,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       var username = localStorage.getItem('user');
 
-      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users", {
+      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/:Username", {
         headers: {
           Authorization: "Bearer ".concat(token)
         }
@@ -50214,7 +50214,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50862" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64962" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

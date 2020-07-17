@@ -12,6 +12,8 @@ export const RegistrationView = (props) => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthdate, setBirthDate] = useState("");
+    const [favoritemovies, setFavoriteMovies] = useState("");
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,6 +24,7 @@ export const RegistrationView = (props) => {
             Password: password,
             Email: email,
             BirthDate: birthdate
+            FavoriteMovies: favoritemovies
         })
             .then(response => {
                 const data = response.data;
@@ -53,6 +56,10 @@ export const RegistrationView = (props) => {
                 <Form.Group controlId="formBasicDob">
                     <Form.Label>Date of Birth</Form.Label>
                     <Form.Control type="date" value={birthdate} onChange={e => setBirthDate(e.target.value)} />
+                </Form.Group>
+                <Form.Group controlId="formBasicFavoriteMovies">
+                    <Form.Label>Favorite Movies</Form.Label>
+                    <Form.Control type="date" value={favoritemovies} onChange={e => setFavoriteMovies(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicChecbox">

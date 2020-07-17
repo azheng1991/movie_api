@@ -139,8 +139,6 @@ export class MainView extends Component {
                         </Row>
                     </Container>
                 </Router>
-
-
             </div>
         );
     }
