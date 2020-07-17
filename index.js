@@ -23,9 +23,9 @@ const Users = Models.User;
 
 
 
-/*connect locally
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
-*/
+// connect locally
+// mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 
 //Connect to online database hosted on MongoDB Atlas
@@ -47,13 +47,12 @@ app.get("/", (req, res) => {
 });
 
 //Return a list of ALL movies to the user
-app.get("/movies", {
-  session: false
-}), (req, res) => {
+app.get('/movies', function (req, res) {
   Movies.find()
-    .then(movies => {
-      res.status(201).json(movies);
-    }).catch(err => {
+    .then(function (movies) {
+      res.status(201).json(movies)
+    })
+    .catch(function (err) {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
