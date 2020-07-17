@@ -80,15 +80,7 @@ export function UpdateView(props) {
                             </Row>
                         </Form>
                     </Container>
-                    <Container className="mt-4">
-                        <Row className="d-flex align-items-center justify-content-center">
-                            <span>Want to delete your myFlix account?</span>
-                            <Link to={`/users/${user}`}>
-                                <Button variant="link" className="unregister-btn">Delete</Button>
-                            </Link>
 
-                        </Row>
-                    </Container>
                 </Col>
             </Row>
         </div>

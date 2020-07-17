@@ -36473,6 +36473,11 @@ var RegistrationView = function RegistrationView(props) {
       birthdate = _useState8[0],
       setBirthDate = _useState8[1];
 
+  var _useState9 = (0, _react.useState)(""),
+      _useState10 = _slicedToArray(_useState9, 2),
+      favoritemovies = _useState10[0],
+      setFavoriteMovies = _useState10[1];
+
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     var loginUrl = "https://desolate-forest-59381.herokuapp.com/users";
@@ -36481,7 +36486,8 @@ var RegistrationView = function RegistrationView(props) {
       Username: username,
       Password: password,
       Email: email,
-      BirthDate: birthdate
+      BirthDate: birthdate,
+      FavoriteMovies: favoritemovies
     }).then(function (response) {
       var data = response.data;
       window.open("/", "_self"); // the second argument '_self' is necessary so that the page will open in the current tab
@@ -36528,6 +36534,14 @@ var RegistrationView = function RegistrationView(props) {
     value: birthdate,
     onChange: function onChange(e) {
       return setBirthDate(e.target.value);
+    }
+  })), _react.default.createElement(_Form.default.Group, {
+    controlId: "formBasicFavoriteMovies"
+  }, _react.default.createElement(_Form.default.Label, null, "Favorite Movies"), _react.default.createElement(_Form.default.Control, {
+    type: "text",
+    value: favoritemovies.title,
+    onChange: function onChange(e) {
+      return setFavoriteMovies(e.target.value);
     }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicChecbox"

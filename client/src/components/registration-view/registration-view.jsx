@@ -23,7 +23,7 @@ export const RegistrationView = (props) => {
             Username: username,
             Password: password,
             Email: email,
-            BirthDate: birthdate
+            BirthDate: birthdate,
             FavoriteMovies: favoritemovies
         })
             .then(response => {
@@ -59,7 +59,7 @@ export const RegistrationView = (props) => {
                 </Form.Group>
                 <Form.Group controlId="formBasicFavoriteMovies">
                     <Form.Label>Favorite Movies</Form.Label>
-                    <Form.Control type="date" value={favoritemovies} onChange={e => setFavoriteMovies(e.target.value)} />
+                    <Form.Control type="text" value={favoritemovies.title} onChange={e => setFavoriteMovies(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group controlId="formBasicChecbox">
