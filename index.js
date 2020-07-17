@@ -46,6 +46,11 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
+
+
 //Return a list of ALL movies to the user
 app.get('/movies', function (req, res) {
   Movies.find()
