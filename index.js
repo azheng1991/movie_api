@@ -23,7 +23,7 @@ const Users = Models.User;
 
 
 
-// connect locally
+// // connect locally
 // mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
@@ -254,7 +254,7 @@ app.delete("/users/:Username", passport.authenticate('jwt', {
   })
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", function () {
-  console.log("Listening on Port 3000");
+  console.log("Listening on Port 8080");
 });
