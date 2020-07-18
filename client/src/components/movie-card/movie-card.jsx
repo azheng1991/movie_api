@@ -5,11 +5,13 @@ import Card from 'react-bootstrap/Card';
 
 import { Link } from "react-router-dom";
 
+
+
 export class MovieCard extends React.Component {
     render() {
         const { movie } = this.props;
 
-        addFavoriteMovie(movie._id) {
+        function addFavoriteMovie(movie._id) {
 
             axios.post(`https://desolate-forest-59381.herokuapp.com/users/${Username}/Movies/${MovieID}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }

@@ -27,7 +27,7 @@ export class ProfileView extends React.Component {
         const accessToken = localStorage.getItem('token');
         this.getUser(accessToken);
 
-        getUser(token) {
+        function getUser(token) {
             const username = localStorage.getItem('user');
             axios
                 .get(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
@@ -52,7 +52,7 @@ export class ProfileView extends React.Component {
         const { movies } = this.props;
         console.log(movies);
 
-        deleteUser() {
+        function deleteUser() {
             event.preventDefault();
             axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${Username}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` };
@@ -66,7 +66,7 @@ export class ProfileView extends React.Component {
             });
         };
 
-        deleteFavoriteMovie(event, movie._id) {
+        function deleteFavoriteMovie(event, movie._id) {
             event.preventDefault();
             axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${Username}/Movies/${movie._id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
