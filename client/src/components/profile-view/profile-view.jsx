@@ -66,9 +66,9 @@ export class ProfileView extends React.Component {
             });
         };
 
-        deleteFavoriteMovie(event, movieId) {
+        deleteFavoriteMovie(event, movie._id) {
             event.preventDefault();
-            axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${username}/Movies/${movieId}`, {
+            axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${Username}/Movies/${movie._id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
                 .then(() => {
