@@ -36363,6 +36363,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var movies = this.props.movies;
+
       function deleteUser() {
         event.preventDefault();
 
@@ -36379,7 +36381,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       ;
 
-      function deleteFavoriteMovie(event, burrito) {
+      function deleteFavoriteMovie(burrito) {
         event.preventDefault();
 
         _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username, "/Movies/").concat(movies._id), {
@@ -36394,29 +36396,31 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }
 
       ;
-      return _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), "Favorite Movies:", this.state.favoriteMovies.length === 0 && _react.default.createElement("p", null, "You have no favorite movies."), this.state.favoriteMovies.map(function (FavoriteMovie) {
-        return _react.default.createElement("div", {
-          key: movie._id,
-          className: "fav-movies-button"
-        }, _react.default.createElement(_reactRouterDom.Link, {
-          to: "/movies/".concat(movie._id)
+      return (// const { movies } = this.props;
+        _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), "Favorite Movies:", this.state.favoriteMovies.length === 0 && _react.default.createElement("p", null, "You have no favorite movies."), this.state.favoriteMovies.map(function (FavoriteMovie) {
+          return _react.default.createElement("div", {
+            key: movies._id,
+            className: "fav-movies-button"
+          }, _react.default.createElement(_reactRouterDom.Link, {
+            to: "/movies/".concat(movies._id)
+          }, _react.default.createElement(_Button.default, {
+            variant: "link"
+          }, movies.Title)), _react.default.createElement(_Button.default, {
+            size: "sm",
+            onClick: function onClick(e) {
+              return deleteFavoriteMovie(movies._id);
+            }
+          }, "Remove Favorite"));
+        }), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+          to: '/update/:Username'
         }, _react.default.createElement(_Button.default, {
-          variant: "link"
-        }, movie.Title)), _react.default.createElement(_Button.default, {
-          size: "sm",
-          onClick: function onClick(e) {
-            return deleteFavoriteMovie(movie._id);
-          }
-        }, "Remove Favorite"));
-      }), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
-        to: '/update/:Username'
-      }, _react.default.createElement(_Button.default, {
-        variant: "primary"
-      }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
-        onClick: deleteUser
-      }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
-        to: "/"
-      }, "Back")))));
+          variant: "primary"
+        }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
+          onClick: deleteUser
+        }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+          to: "/"
+        }, "Back")))))
+      );
     }
   }]);
 
@@ -50236,7 +50240,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54334" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53957" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

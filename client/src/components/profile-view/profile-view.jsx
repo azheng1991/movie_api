@@ -46,6 +46,7 @@ export class ProfileView extends React.Component {
     };
     render() {
 
+        const { movies } = this.props;
 
         function deleteUser() {
             event.preventDefault();
@@ -61,7 +62,7 @@ export class ProfileView extends React.Component {
             })
         };
 
-        function deleteFavoriteMovie(event, burrito) {
+        function deleteFavoriteMovie(burrito) {
             event.preventDefault();
             axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${username}/Movies/${movies._id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -76,6 +77,9 @@ export class ProfileView extends React.Component {
 
 
         return (
+
+            // const { movies } = this.props;
+
             <div>
                 <Container>
                     <h1>My Profile</h1>
@@ -89,13 +93,13 @@ export class ProfileView extends React.Component {
               Favorite Movies:
               {this.state.favoriteMovies.length === 0 && <p>You have no favorite movies.</p>}
                             {this.state.favoriteMovies.map((FavoriteMovie) => (
-                                <div key={movie._id} className="fav-movies-button">
-                                    <Link to={`/movies/${movie._id}`}>
-                                        <Button variant="link">{movie.Title}</Button>
+                                <div key={movies._id} className="fav-movies-button">
+                                    <Link to={`/movies/${movies._id}`}>
+                                        <Button variant="link">{movies.Title}</Button>
                                     </Link>
                                     <Button
                                         size="sm"
-                                        onClick={(e) => deleteFavoriteMovie(movie._id)}
+                                        onClick={(e) => deleteFavoriteMovie(movies._id)}
                                     >
                                         Remove Favorite
                   </Button>
