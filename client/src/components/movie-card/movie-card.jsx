@@ -11,19 +11,19 @@ export class MovieCard extends React.Component {
     render() {
         const { movie } = this.props;
 
-        function addFavoriteMovie(movie._id) {
+        function addFavoriteMovie(burrito) {
 
             axios.post(`https://desolate-forest-59381.herokuapp.com/users/${Username}/Movies/${MovieID}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-            });
-                .then(() => {
-                alert('Movie successfully added to favorites');
             })
+                .then(() => {
+                    alert('Movie successfully added to favorites');
+                })
 
                 .catch(e => {
                     alert('Movie could not be added to favorites ' + e);
                 });
-        }
+        };
 
         return (
             <Card style={{ width: '16rem' }}>
@@ -37,7 +37,6 @@ export class MovieCard extends React.Component {
                     <Button size="sm" onClick={(e) => this.addFavoriteMovie(movie._id)}>
                         Add Favorite
                         </Button>
-                    </div>
                 </Card.Body>
             </Card >
         );
