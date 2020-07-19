@@ -43,7 +43,7 @@ export class ProfileView extends React.Component {
         console.log(err);
       });
   }
-  deleteUser() {
+  deleteUser(user) {
     event.preventDefault();
     axios
       .delete(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
@@ -101,7 +101,7 @@ export class ProfileView extends React.Component {
                         <Link to={`/movies/${favoriteMovie}`}>
                           <Button size="sm" variant="info">Open</Button>
                         </Link>
-                        <Button variant="secondary" size="sm" onClick={(event) => this.deleteMovieFromFavs(event, favoriteMovie)}>
+                        <Button variant="secondary" size="sm" onClick={(event) => this.deleteFavoriteMovie(event, favoriteMovie)}>
                           Delete
                         </Button>
                       </li>)
@@ -117,7 +117,7 @@ export class ProfileView extends React.Component {
                 <br />
                 <br />
               </Link>
-              {/* <Button onClick={deleteUser}>Delete User</Button> */}
+              <Button onClick={deleteUser(user)}>Delete User</Button>
               <br />
               <br />
               <Link to={`/`}>Back</Link>

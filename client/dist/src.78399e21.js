@@ -36368,7 +36368,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "deleteUser",
-    value: function deleteUser() {
+    value: function deleteUser(user) {
       event.preventDefault();
 
       _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
@@ -36420,14 +36420,16 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           variant: "secondary",
           size: "sm",
           onClick: function onClick(event) {
-            return _this3.deleteMovieFromFavs(event, favoriteMovie);
+            return _this3.deleteFavoriteMovie(event, favoriteMovie);
           }
         }, "Delete"));
       }))), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/update/:Username"
       }, _react.default.createElement(_Button.default, {
         variant: "primary"
-      }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
+        onClick: deleteUser(user)
+      }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, "Back")))));
     }
@@ -50252,7 +50254,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57336" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58246" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
