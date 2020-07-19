@@ -56,7 +56,7 @@ export class ProfileView extends React.Component {
         alert("User could not be deleted from registry " + e);
       });
   }
-  deleteFavoriteMovie(burrito) {
+  deleteFavoriteMovie(event, favoriteMovie) {
     event.preventDefault();
     axios
       .delete(
@@ -73,9 +73,9 @@ export class ProfileView extends React.Component {
       });
   }
   render() {
-    const { movies } = this.props;
+    const { favoriteMovies } = this.state;
     return (
-      // const { movies } = this.props;
+
       <div>
         <Container>
           <h1>My Profile</h1>
@@ -86,23 +86,30 @@ export class ProfileView extends React.Component {
               <Card.Text>Password: xxxxxx</Card.Text>
               <Card.Text>Email: {this.state.email}</Card.Text>
               <Card.Text>Birthday {this.state.birthday}</Card.Text>
-              {/* Favorite Movies:
-              {this.state.favoriteMovies.length === 0 && (
-                <p>You have no favorite movies.</p>
-              )}
-              {this.state.favoriteMovies.map((FavoriteMovie) => (
-                <div key={movies._id} className="fav-movies-button">
-                  <Link to={`/movies/${movies._id}`}>
-                    <Button variant="link">{movies.Title}</Button>
-                  </Link>
-                  <Button
-                    size="sm"
-                    onClick={(e) => deleteFavoriteMovie(movies._id)}
-                  >
-                    Remove Favorite
-                  </Button>
-                </div>
-              ))} */}
+              <Card.Text>Favorite Movies:
+
+                {this.state.favoriteMovies === 0 &&
+                  <div className="value">No Favorite Movies have been added</div>
+                }
+                {this.state.favoriteMovies > 0 &&
+                  <ul>
+                    {this.state.favoriteMovies.map(favoriteMovie =>
+                      (<li key={favoriteMovie}>
+                        <p className="favoriteMovies">
+                          {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
+                        </p>
+                        <Link to={`/movies/${favoriteMovie}`}>
+                          <Button size="sm" variant="info">Open</Button>
+                        </Link>
+                        <Button variant="secondary" size="sm" onClick={(event) => this.deleteMovieFromFavs(event, favoriteMovie)}>
+                          Delete
+                        </Button>
+                      </li>)
+                    )}
+                  </ul>
+                }
+
+            </Card.Text>
               <br />
               <br />
               <Link to={"/update/:Username"}>
