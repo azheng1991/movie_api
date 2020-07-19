@@ -6,12 +6,10 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-const deleteUser = () => {
-    window.open('/', '_self');
-}
+
 export class ProfileView extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             username: null,
             password: null,
@@ -23,14 +21,11 @@ export class ProfileView extends React.Component {
     };
 
     componentDidMount() {
-        //authentication
-        const accessToken = localStorage.getItem('token');
-        this.getUser(accessToken);
 
         function getUser(token) {
             const username = localStorage.getItem('user');
             axios
-                .get(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
+                .get(`https://desolate-forest-59381.herokuapp.com/users/${user}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
                 .then((res) => {
@@ -41,34 +36,34 @@ export class ProfileView extends React.Component {
                         email: res.data.Email,
                         birthday: res.data.Birthday,
                         favoriteMovies: res.data.FavoriteMovies,
-                    });
+                        movies: res.data.Movies
+                    })
                 })
                 .catch(function (err) {
                     console.log(err);
-                });
+                })
         };
     };
     render() {
-        const { movies } = this.props;
-        console.log(movies);
+
 
         function deleteUser() {
             event.preventDefault();
-            axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${Username}`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` };
-            });
+            axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            })
                 .then(() => {
                 alert('User successfully deleted from registry');
-            });
+            })
 
                 .catch (e => {
                 alert('User could not be deleted from registry ' + e)
-            });
+            })
         };
 
-        function deleteFavoriteMovie(event, movie._id) {
+        function deleteFavoriteMovie(event, burrito) {
             event.preventDefault();
-            axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${Username}/Movies/${movie._id}`, {
+            axios.delete(`https://desolate-forest-59381.herokuapp.com/users/${username}/Movies/${movies._id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
             })
                 .then(() => {
@@ -76,7 +71,7 @@ export class ProfileView extends React.Component {
                 })
                 .catch(e => {
                     alert('Movie could not be deleted from favorites ' + e)
-                });
+                })
         };
 
 
@@ -100,7 +95,7 @@ export class ProfileView extends React.Component {
                                     </Link>
                                     <Button
                                         size="sm"
-                                        onClick={(e) => this.deleteFavoriteMovie(movie._id)}
+                                        onClick={(e) => deleteFavoriteMovie(movie._id)}
                                     >
                                         Remove Favorite
                   </Button>

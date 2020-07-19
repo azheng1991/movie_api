@@ -32,8 +32,8 @@ export const RegistrationView = (props) => {
             })
             .catch((e) => {
                 console.log("error registering the user");
-            });
-    }
+            })
+    };
 
     return (
         <Container className="registrationForm">

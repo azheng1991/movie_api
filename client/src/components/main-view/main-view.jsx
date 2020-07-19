@@ -37,11 +37,11 @@ export class MainView extends Component {
       .then((response) => {
         this.setState({
           movies: response.data,
-        });
+        })
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
   };
 
   componentDidMount = () => {
@@ -50,7 +50,7 @@ export class MainView extends Component {
       this.setState({
         user: localStorage.getItem("user"),
         userData: localStorage.getItem("data"),
-      });
+      })
       this.getMovies(accessToken);
     }
   };
@@ -58,13 +58,13 @@ export class MainView extends Component {
   onMovieClick = (movie) => {
     this.setState({
       selectedMovie: movie,
-    });
+    })
   };
 
   onLoggedIn = (authData) => {
     this.setState({
       user: authData.user.Username,
-    });
+    })
 
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
@@ -75,7 +75,7 @@ export class MainView extends Component {
     this.setState({
       user: null,
       register: null,
-    });
+    })
 
     localStorage.removeItem("token");
     localStorage.removeItem("user");

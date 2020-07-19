@@ -34775,6 +34775,8 @@ var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
 var _Card = _interopRequireDefault(require("react-bootstrap/Card"));
 
+var _axios = _interopRequireDefault(require("axios"));
+
 var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34815,7 +34817,23 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
   _createClass(MovieCard, [{
     key: "render",
     value: function render() {
-      var movie = this.props.movie;
+      var _this$props = this.props,
+          movie = _this$props.movie,
+          user = _this$props.user;
+
+      function addFavoriteMovie(burrito) {
+        _axios.default.post("https://desolate-forest-59381.herokuapp.com/users/".concat(user, "/Movies/").concat(movie._id), {
+          headers: {
+            Authorization: "Bearer ".concat(localStorage.getItem('token'))
+          }
+        }).then(function () {
+          alert('Movie successfully added to favorites');
+        }).catch(function (e) {
+          alert('Movie could not be added to favorites ' + e);
+        });
+      }
+
+      ;
       return _react.default.createElement(_Card.default, {
         style: {
           width: '16rem'
@@ -34827,7 +34845,12 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         to: "/movies/".concat(movie._id)
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "Open"))));
+      }, "Open")), _react.default.createElement(_Button.default, {
+        size: "sm",
+        onClick: function onClick(e) {
+          return addFavoriteMovie(movie._id);
+        }
+      }, "Add Favorite")));
     }
   }]);
 
@@ -34835,7 +34858,8 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieCard = MovieCard;
-},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
+;
+},{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36114,7 +36138,7 @@ function LoginView(props) {
       var data = response.data;
       props.onLoggedIn(data);
     }).catch(function (e) {
-      console.log('no such user');
+      alert('no such user');
     });
   };
 
@@ -36284,21 +36308,17 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var deleteUser = function deleteUser() {
-  window.open('/', '_self');
-};
-
 var ProfileView = /*#__PURE__*/function (_React$Component) {
   _inherits(ProfileView, _React$Component);
 
   var _super = _createSuper(ProfileView);
 
-  function ProfileView(props) {
+  function ProfileView() {
     var _this;
 
     _classCallCheck(this, ProfileView);
 
-    _this = _super.call(this, props);
+    _this = _super.call(this);
     _this.state = {
       username: null,
       password: null,
@@ -36313,42 +36333,67 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   _createClass(ProfileView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      //authentication
-      var accessToken = localStorage.getItem('token');
-      this.getUser(accessToken);
-    }
-  }, {
-    key: "getUser",
-    value: function getUser(token) {
-      var _this2 = this;
+      function getUser(token) {
+        var _this2 = this;
 
-      var username = localStorage.getItem('user');
+        var username = localStorage.getItem('user');
 
-      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
-        headers: {
-          Authorization: "Bearer ".concat(token)
-        }
-      }).then(function (res) {
-        console.log(res.data);
+        _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/".concat(user), {
+          headers: {
+            Authorization: "Bearer ".concat(token)
+          }
+        }).then(function (res) {
+          console.log(res.data);
 
-        _this2.setState({
-          username: res.data.Username,
-          password: res.data.Password,
-          email: res.data.Email,
-          birthday: res.data.Birthday,
-          favoriteMovies: res.data.FavoriteMovies
+          _this2.setState({
+            username: res.data.Username,
+            password: res.data.Password,
+            email: res.data.Email,
+            birthday: res.data.Birthday,
+            favoriteMovies: res.data.FavoriteMovies,
+            movies: res.data.Movies
+          });
+        }).catch(function (err) {
+          console.log(err);
         });
-      }).catch(function (err) {
-        console.log(err);
-      });
+      }
+
+      ;
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      function deleteUser() {
+        event.preventDefault();
 
-      var movies = this.props.movies;
-      console.log(movies);
+        _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
+          headers: {
+            Authorization: "Bearer ".concat(localStorage.getItem('token'))
+          }
+        }).then(function () {
+          alert('User successfully deleted from registry');
+        }).catch(function (e) {
+          alert('User could not be deleted from registry ' + e);
+        });
+      }
+
+      ;
+
+      function deleteFavoriteMovie(event, burrito) {
+        event.preventDefault();
+
+        _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username, "/Movies/").concat(movies._id), {
+          headers: {
+            Authorization: "Bearer ".concat(localStorage.getItem('token'))
+          }
+        }).then(function () {
+          alert('Movie successfully deleted from favorites');
+        }).catch(function (e) {
+          alert('Movie could not be deleted from favorites ' + e);
+        });
+      }
+
+      ;
       return _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), "Favorite Movies:", this.state.favoriteMovies.length === 0 && _react.default.createElement("p", null, "You have no favorite movies."), this.state.favoriteMovies.map(function (FavoriteMovie) {
         return _react.default.createElement("div", {
           key: movie._id,
@@ -36360,7 +36405,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         }, movie.Title)), _react.default.createElement(_Button.default, {
           size: "sm",
           onClick: function onClick(e) {
-            return _this3.deleteFavoriteMovie(movie._id);
+            return deleteFavoriteMovie(movie._id);
           }
         }, "Remove Favorite"));
       }), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
@@ -49783,10 +49828,10 @@ function UpdateView(props) {
   }, _react.default.createElement("span", {
     className: "d-flex align-items-center mb-4"
   }, _react.default.createElement(_reactRouterDom.Link, {
-    to: "/users/".concat(user)
+    to: "/profile"
   }, _react.default.createElement("i", {
     className: "material-icons"
-  }, "arrow_back_ios")), _react.default.createElement("h1", {
+  }, "Back")), _react.default.createElement("h1", {
     className: ""
   }, "Update ", user, "'s profile")), _react.default.createElement("p", {
     className: "lead pl-3 mb-4 warning"
@@ -49943,12 +49988,12 @@ var MainView = /*#__PURE__*/function (_Component) {
     };
 
     _this.componentDidMount = function () {
-      var accessToken = localStorage.getItem('token');
+      var accessToken = localStorage.getItem("token");
 
       if (accessToken !== null) {
         _this.setState({
-          user: localStorage.getItem('user'),
-          userData: localStorage.getItem('data')
+          user: localStorage.getItem("user"),
+          userData: localStorage.getItem("data")
         });
 
         _this.getMovies(accessToken);
@@ -49966,8 +50011,8 @@ var MainView = /*#__PURE__*/function (_Component) {
         user: authData.user.Username
       });
 
-      localStorage.setItem('token', authData.token);
-      localStorage.setItem('user', authData.user.Username);
+      localStorage.setItem("token", authData.token);
+      localStorage.setItem("user", authData.user.Username);
 
       _this.getMovies(authData.token);
     };
@@ -49978,8 +50023,8 @@ var MainView = /*#__PURE__*/function (_Component) {
         register: null
       });
 
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
     };
 
     _this.state = {
@@ -50191,7 +50236,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51530" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54334" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

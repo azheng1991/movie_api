@@ -37,15 +37,15 @@ export function UpdateView(props) {
             })
             .catch(error => {
                 alert('error updating user ' + error);
-            });
+            })
 
-    }
+    };
 
     return (
         <div className="update-view justify-content-center">
             <span className="d-flex align-items-center mb-4">
-                <Link to={`/users/${user}`}>
-                    <i className="material-icons">arrow_back_ios</i>
+                <Link to={`/profile`}>
+                    <i className="material-icons">Back</i>
                 </Link>
                 <h1 className="">Update {user}'s profile</h1>
             </span>
