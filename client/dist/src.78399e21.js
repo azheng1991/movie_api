@@ -34815,28 +34815,33 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MovieCard, [{
+    key: "addFavoriteMovie",
+    value: function addFavoriteMovie(movieData) {
+      var username = localStorage.getItem("user");
+      var token = localStorage.getItem("token");
+      (0, _axios.default)({
+        method: "post",
+        url: "https://desolate-forest-59381.herokuapp.com/users/".concat(username, "/Movies/").concat(movieData._id),
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function () {
+        alert("Movie successfully added to favorites");
+      }).catch(function (e) {
+        alert("Movie could not be added to favorites " + e);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
       var _this$props = this.props,
           movie = _this$props.movie,
           user = _this$props.user;
-
-      function addFavoriteMovie(burrito) {
-        _axios.default.post("https://desolate-forest-59381.herokuapp.com/users/".concat(user, "/Movies/").concat(movie._id), {
-          headers: {
-            Authorization: "Bearer ".concat(localStorage.getItem('token'))
-          }
-        }).then(function () {
-          alert('Movie successfully added to favorites');
-        }).catch(function (e) {
-          alert('Movie could not be added to favorites ' + e);
-        });
-      }
-
-      ;
       return _react.default.createElement(_Card.default, {
         style: {
-          width: '16rem'
+          width: "16rem"
         }
       }, _react.default.createElement(_Card.default.Img, {
         variant: "top",
@@ -34848,7 +34853,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
       }, "Open")), _react.default.createElement(_Button.default, {
         size: "sm",
         onClick: function onClick(e) {
-          return addFavoriteMovie(movie._id);
+          return _this.addFavoriteMovie(movie);
         }
       }, "Add Favorite")));
     }
@@ -34858,7 +34863,6 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
 }(_react.default.Component);
 
 exports.MovieCard = MovieCard;
-;
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap/Card":"../node_modules/react-bootstrap/esm/Card.js","axios":"../node_modules/axios/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/movie-view/movie-view.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -36167,7 +36171,7 @@ function LoginView(props) {
     type: "submit",
     onClick: handleSubmit
   }, "Submit"), _react.default.createElement(_Form.default.Text, {
-    className: "text-muted"
+    className: "text-bold"
   }, "New user? Sign up for an account ", _react.default.createElement(_reactRouterDom.Link, {
     to: "/register"
   }, "HERE"))));
@@ -36333,91 +36337,75 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   _createClass(ProfileView, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      function getUser(token) {
-        var _this2 = this;
+      var userToken = localStorage.getItem("token");
+      this.getUser(userToken);
+    }
+  }, {
+    key: "getUser",
+    value: function getUser(token) {
+      var _this2 = this;
 
-        var username = localStorage.getItem('user');
+      var user = localStorage.getItem("user");
 
-        _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/".concat(user), {
-          headers: {
-            Authorization: "Bearer ".concat(token)
-          }
-        }).then(function (res) {
-          console.log(res.data);
+      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/".concat(user), {
+        headers: {
+          Authorization: "Bearer ".concat(token)
+        }
+      }).then(function (res) {
+        console.log(res.data);
 
-          _this2.setState({
-            username: res.data.Username,
-            password: res.data.Password,
-            email: res.data.Email,
-            birthday: res.data.Birthday,
-            favoriteMovies: res.data.FavoriteMovies,
-            movies: res.data.Movies
-          });
-        }).catch(function (err) {
-          console.log(err);
+        _this2.setState({
+          username: res.data.Username,
+          password: res.data.Password,
+          email: res.data.Email,
+          birthday: res.data.Birthday,
+          favoriteMovies: res.data.FavoriteMovies,
+          movies: res.data.Movies
         });
-      }
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
+    key: "deleteUser",
+    value: function deleteUser() {
+      event.preventDefault();
 
-      ;
+      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function () {
+        alert("User successfully deleted from registry");
+      }).catch(function (e) {
+        alert("User could not be deleted from registry " + e);
+      });
+    }
+  }, {
+    key: "deleteFavoriteMovie",
+    value: function deleteFavoriteMovie(burrito) {
+      event.preventDefault();
+
+      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username, "/Movies/").concat(movies._id), {
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function () {
+        alert("Movie successfully deleted from favorites");
+      }).catch(function (e) {
+        alert("Movie could not be deleted from favorites " + e);
+      });
     }
   }, {
     key: "render",
     value: function render() {
       var movies = this.props.movies;
-
-      function deleteUser() {
-        event.preventDefault();
-
-        _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
-          headers: {
-            Authorization: "Bearer ".concat(localStorage.getItem('token'))
-          }
-        }).then(function () {
-          alert('User successfully deleted from registry');
-        }).catch(function (e) {
-          alert('User could not be deleted from registry ' + e);
-        });
-      }
-
-      ;
-
-      function deleteFavoriteMovie(burrito) {
-        event.preventDefault();
-
-        _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username, "/Movies/").concat(movies._id), {
-          headers: {
-            Authorization: "Bearer ".concat(localStorage.getItem('token'))
-          }
-        }).then(function () {
-          alert('Movie successfully deleted from favorites');
-        }).catch(function (e) {
-          alert('Movie could not be deleted from favorites ' + e);
-        });
-      }
-
-      ;
       return (// const { movies } = this.props;
-        _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), "Favorite Movies:", this.state.favoriteMovies.length === 0 && _react.default.createElement("p", null, "You have no favorite movies."), this.state.favoriteMovies.map(function (FavoriteMovie) {
-          return _react.default.createElement("div", {
-            key: movies._id,
-            className: "fav-movies-button"
-          }, _react.default.createElement(_reactRouterDom.Link, {
-            to: "/movies/".concat(movies._id)
-          }, _react.default.createElement(_Button.default, {
-            variant: "link"
-          }, movies.Title)), _react.default.createElement(_Button.default, {
-            size: "sm",
-            onClick: function onClick(e) {
-              return deleteFavoriteMovie(movies._id);
-            }
-          }, "Remove Favorite"));
-        }), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
-          to: '/update/:Username'
+        _react.default.createElement("div", null, _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+          to: "/update/:Username"
         }, _react.default.createElement(_Button.default, {
           variant: "primary"
-        }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
-          onClick: deleteUser
-        }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+        }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
           to: "/"
         }, "Back")))))
       );
@@ -50055,8 +50043,13 @@ var MainView = /*#__PURE__*/function (_Component) {
       }, _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_Container.default, null, _react.default.createElement(_reactRouterDom.Link, {
         to: "/profile"
       }, _react.default.createElement(_Button.default, {
-        variant: "link"
-      }, "Profile")), _react.default.createElement(_Row.default, null, _react.default.createElement(_reactRouterDom.Route, {
+        variant: "link",
+        bsclass: "custom"
+      }, "Profile")), _react.default.createElement(_Button.default, {
+        variant: "success",
+        className: "float-right",
+        onClick: this.onLogOut
+      }, "Log Out"), _react.default.createElement(_Row.default, null, _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
         path: "/",
         render: function render() {
@@ -50077,9 +50070,7 @@ var MainView = /*#__PURE__*/function (_Component) {
             }, _react.default.createElement(_movieCard.MovieCard, {
               key: m._id,
               movie: m
-            }), _react.default.createElement(_Button.default, {
-              onClick: _this2.onLogOut
-            }, "back"));
+            }));
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -50240,7 +50231,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53957" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54446" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

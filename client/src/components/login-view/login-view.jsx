@@ -47,7 +47,7 @@ export function LoginView(props) {
                 <Button variant="primary" type="submit" onClick={handleSubmit}>
                     Submit
         </Button>
-                <Form.Text className="text-muted">
+                <Form.Text className="text-bold">
                     New user? Sign up for an account <Link to={"/register"}>HERE</Link>
                 </Form.Text>
             </Form>

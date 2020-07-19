@@ -91,8 +91,9 @@ export class MainView extends Component {
         <Router>
           <Container>
             <Link to={"/profile"}>
-              <Button variant="link">Profile</Button>
+              <Button variant="link" bsclass="custom">Profile</Button>
             </Link>
+            <Button variant="success" className="float-right" onClick={this.onLogOut}>Log Out</Button>
             <Row>
               <Route
                 exact
@@ -107,7 +108,6 @@ export class MainView extends Component {
                     return (
                       <Col key={m._id} xs={12} sm={6} md={4}>
                         <MovieCard key={m._id} movie={m} />
-                        <Button onClick={this.onLogOut}>back</Button>
                       </Col>
                     );
                   });
