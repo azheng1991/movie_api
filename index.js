@@ -133,6 +133,7 @@ app.get("/users/:Username", (req, res) => {
     });
 });
 
+//register a new user
 app.post(
   "/users",
   // Validation logic here for request

@@ -37634,14 +37634,13 @@ var RegistrationView = function RegistrationView(props) {
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
-    var loginUrl = "https://desolate-forest-59381.herokuapp.com/users";
+    var registerUrl = "https://desolate-forest-59381.herokuapp.com/users";
 
-    _axios.default.post(loginUrl, {
+    _axios.default.post(registerUrl, {
       Username: username,
       Password: password,
       Email: email,
-      BirthDate: birthdate,
-      FavoriteMovies: favoritemovies
+      BirthDate: birthdate
     }).then(function (response) {
       var data = response.data;
       window.open("/", "_self"); // the second argument '_self' is necessary so that the page will open in the current tab
@@ -37688,14 +37687,6 @@ var RegistrationView = function RegistrationView(props) {
     value: birthdate,
     onChange: function onChange(e) {
       return setBirthDate(e.target.value);
-    }
-  })), _react.default.createElement(_Form.default.Group, {
-    controlId: "formBasicFavoriteMovies"
-  }, _react.default.createElement(_Form.default.Label, null, "Favorite Movies"), _react.default.createElement(_Form.default.Control, {
-    type: "text",
-    value: favoritemovies.title,
-    onChange: function onChange(e) {
-      return setFavoriteMovies(e.target.value);
     }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicChecbox"
@@ -50262,7 +50253,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60058" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61616" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

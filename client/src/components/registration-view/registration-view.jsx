@@ -18,13 +18,12 @@ export const RegistrationView = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const loginUrl = "https://desolate-forest-59381.herokuapp.com/users";
-        axios.post(loginUrl, {
+        const registerUrl = "https://desolate-forest-59381.herokuapp.com/users";
+        axios.post(registerUrl, {
             Username: username,
             Password: password,
             Email: email,
             BirthDate: birthdate,
-            FavoriteMovies: favoritemovies
         })
             .then(response => {
                 const data = response.data;
@@ -57,10 +56,7 @@ export const RegistrationView = (props) => {
                     <Form.Label>Date of Birth</Form.Label>
                     <Form.Control type="date" value={birthdate} onChange={e => setBirthDate(e.target.value)} />
                 </Form.Group>
-                <Form.Group controlId="formBasicFavoriteMovies">
-                    <Form.Label>Favorite Movies</Form.Label>
-                    <Form.Control type="text" value={favoritemovies.title} onChange={e => setFavoriteMovies(e.target.value)} />
-                </Form.Group>
+
 
                 <Form.Group controlId="formBasicChecbox">
                     <Form.Check type="checkbox" label="Check to make sure you're not a robot" />
