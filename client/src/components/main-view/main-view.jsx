@@ -165,6 +165,7 @@ export class MainView extends Component {
                   return (
                     <ProfileView
                       user={user}
+                      movies={movies}
                       token={localStorage.getItem("token")}
                     />
                   );

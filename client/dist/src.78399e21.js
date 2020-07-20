@@ -37446,8 +37446,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       email: null,
       birthday: null,
       favoriteMovies: [],
-      movies: [],
-      userData: []
+      movies: []
     };
     return _this;
   }
@@ -37478,8 +37477,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           email: res.data.Email,
           birthday: res.data.Birthday,
           favoriteMovies: res.data.FavoriteMovies,
-          movies: res.data.Movies,
-          userData: response.data
+          movies: res.data.Movies
         });
       }).catch(function (err) {
         console.log(err);
@@ -37488,8 +37486,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteUser",
     value: function deleteUser(e) {
-      e.preventDefault();
-
+      // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
+      // e.preventDefault();
       _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
@@ -37522,13 +37520,10 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       var _this3 = this;
 
       // by destructuring you dont need to use this.state for these below
-      // spent a while trying to u/s this concept, and what I'm seeing is that destructuring allows you to break down an array into variables
-      // so the correct code should be like this:
-      // const { movies, favoriteMovies, username } = this.props;
       var movies = this.props.movies;
-      var _this$props = this.props,
-          favoriteMovies = _this$props.favoriteMovies,
-          username = _this$props.username; //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
+      var _this$state = this.state,
+          favoriteMovies = _this$state.favoriteMovies,
+          username = _this$state.username; //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
 
       if (!username) return _react.default.createElement("div", null, _react.default.createElement("span", null, "Loading...."));
       return _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), _react.default.createElement(_Card.default.Text, null, "Favorite Movies:", favoriteMovies.length === 0 && _react.default.createElement("div", {
@@ -50153,6 +50148,7 @@ var MainView = /*#__PURE__*/function (_Component) {
         render: function render() {
           return _react.default.createElement(_profileView.ProfileView, {
             user: user,
+            movies: movies,
             token: localStorage.getItem("token")
           });
         }
@@ -50266,7 +50262,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59460" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51318" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

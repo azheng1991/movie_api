@@ -17,7 +17,6 @@ export class ProfileView extends React.Component {
       birthday: null,
       favoriteMovies: [],
       movies: [],
-      userData: []
     };
   }
   componentDidMount() {
@@ -39,7 +38,6 @@ export class ProfileView extends React.Component {
           birthday: res.data.Birthday,
           favoriteMovies: res.data.FavoriteMovies,
           movies: res.data.Movies,
-          userData: response.data,
         });
       })
       .catch(function (err) {
@@ -47,7 +45,8 @@ export class ProfileView extends React.Component {
       });
   }
   deleteUser(e) {
-    e.preventDefault();
+    // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
+    // e.preventDefault();
     axios
       .delete(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -78,13 +77,8 @@ export class ProfileView extends React.Component {
   }
   render() {
     // by destructuring you dont need to use this.state for these below
-// spent a while trying to u/s this concept, and what I'm seeing is that destructuring allows you to break down an array into variables
-// so the correct code should be like this:
-
-// const { movies, favoriteMovies, username } = this.props;
-
     const { movies } = this.props;
-    const { favoriteMovies, username } = this.props;
+    const { favoriteMovies, username } = this.state;
     //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
     if (!username)
       return (
@@ -108,10 +102,6 @@ export class ProfileView extends React.Component {
                 <div className="value">No Favorite Movies have been added</div>
               )}
               {/* you need to check the length of the array */}
-              {/* doesn't the .length method check for the length of an array as I have below?
-              the logic of this code makes sense to me: in terms of psuedocode:
-              1. check if the length of the favoriteMovies array is greater than zero, if so, return no favorite movies above
-              2. If the length of the array > 0, then map a new array where each element is the favorite movie that you can click on to get more info about or delete if you wish */}
               {favoriteMovies.length > 0 && (
                 <ul>
                   {favoriteMovies.map((favoriteMovie) => (
@@ -149,7 +139,6 @@ export class ProfileView extends React.Component {
               <br />
             </Link>
             {/* you had user here which is not defined, pull username out of state. */}
-            {/* should be good for the above comment I believe if I implement the commented out code when I destructure, right? */}
             {/* <Button onClick={this.deleteUser(username)}>Delete User</Button> */}
             <br />
             <br />
