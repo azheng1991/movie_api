@@ -37475,7 +37475,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           username: res.data.Username,
           password: res.data.Password,
           email: res.data.Email,
-          birthday: res.data.Birthday,
+          birthday: res.data.BirthDate,
           favoriteMovies: res.data.FavoriteMovies,
           movies: res.data.Movies
         });
@@ -50262,7 +50262,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51318" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60058" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
