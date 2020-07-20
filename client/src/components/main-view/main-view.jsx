@@ -93,7 +93,7 @@ export class MainView extends Component {
             <Link to={"/profile"}>
               <Button variant="link" bsclass="custom">Profile</Button>
             </Link>
-            <Button variant="success" className="float-right" onClick={this.onLogOut}>Log Out</Button>
+            <Button variant="primary" className="float-right" onClick={this.onLogOut}>Log Out</Button>
             <Row>
               <Route
                 exact
