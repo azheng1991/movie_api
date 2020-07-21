@@ -19,7 +19,10 @@ const Users = Models.User;
 // var allowedOrigins = ['http://localhost:3000', 'http://testsite.com'];
 
 // // connect locally
-// mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 //Connect to online database hosted on MongoDB Atlas
 mongoose.connect(process.env.CONNECTION_URI, {
