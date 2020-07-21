@@ -1,21 +1,28 @@
-import React, { Component } from "react";
+import React, {Component, useState } from "react";
 import axios from "axios";
+
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
-
-import { MovieCard } from "../movie-card/movie-card";
-import { MovieView } from "../movie-view/movie-view";
-import { LoginView } from "../login-view/login-view";
-import { GenreView } from "../genre-view/genre-view";
-import { DirectorView } from "../director-view/director-view";
-import { ProfileView } from "../profile-view/profile-view";
-import { RegistrationView } from "../registration-view/registration-view";
-import { UpdateView } from "../profile-view/update-view";
-import "./main-view.scss";
 import Button from "react-bootstrap/Button";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {Link} from "react-router-dom";
+
+import {MovieCard} from "../movie-card/movie-card";
+import {MovieView} from '../movie-view/movie-view';
+import {LoginView} from '../login-view/login-view';
+import {GenreView} from '../genre-view/genre-view';
+import {DirectorView} from '../director-view/director-view';
+import {ProfileView} from '../profile-view/profile-view';
+import {RegistrationView} from '../registration-view/registration-view';
+import { UpdateView } from "../profile-view/update-view";
+
+
+
+import "./main-view.scss";
 
 export class MainView extends Component {
   constructor() {
@@ -89,11 +96,26 @@ export class MainView extends Component {
     return (
       <div className="main-view">
         <Router>
-          <Container>
-            <Link to={"/profile"}>
-              <Button variant="link" bsclass="custom">Profile</Button>
+        <Navbar bg="dark" variant="dark">
+            <Link to={"/"}>
+              <Navbar.Brand className="main-title">MyFlix</Navbar.Brand>
             </Link>
-            <Button variant="primary" className="float-right" onClick={this.onLogOut}>Log Out</Button>
+            <Nav className="mr-auto">
+            </Nav>
+            {user && (
+              <div>
+                <Link to={"/profile"}>
+                  <Button variant="link">Profile</Button>
+                </Link>
+                <Link to="/">
+                  <Button onClick={() => this.onLogOut()}>Log Out</Button>
+                </Link>
+              </div>
+            )}
+          </Navbar>
+
+
+          <Container>
             <Row>
               <Route
                 exact

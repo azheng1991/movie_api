@@ -64,7 +64,7 @@ export const RegistrationView = (props) => {
                 <Button variant="primary" type="submit" onClick={handleSubmit}>
                     Register
         </Button>
-                <Form.Text className="text-muted">
+                <Form.Text className="text-bold">
                     Already have an account? Log in <Link to={"/"}>HERE</Link>
                 </Form.Text>
             </Form>
