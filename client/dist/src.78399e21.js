@@ -39168,7 +39168,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       var movies = this.props.movies;
       var _this$state = this.state,
           favoriteMovies = _this$state.favoriteMovies,
-          username = _this$state.username; //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
+          username = _this$state.username;
+      var userData = this.state.userData; //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
 
       if (!userData) return _react.default.createElement("center", null, _react.default.createElement(_Spinner.default, {
         animation: "border",
@@ -39176,7 +39177,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement("span", {
         className: "sr-only"
       }, "Loading...")));
-      return _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.userData.Username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.userData.Email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.userData.Birthday), _react.default.createElement(_Card.default.Text, null, "Favorite Movies:", userData.FavoriteMovies.length === 0 && _react.default.createElement("div", {
+      return _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", userData.Username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", userData.Email), _react.default.createElement(_Card.default.Text, null, "Birthday ", userData.Birthday), _react.default.createElement(_Card.default.Text, null, "Favorite Movies:", userData.FavoriteMovies.length === 0 && _react.default.createElement("div", {
         className: "value"
       }, "No Favorite Movies have been added"), userData.FavoriteMovies.length > 0 && _react.default.createElement("ul", null, userData.FavoriteMovies.map(function (favoriteMovie) {
         return _react.default.createElement("li", {
@@ -50266,7 +50267,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52220" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55586" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

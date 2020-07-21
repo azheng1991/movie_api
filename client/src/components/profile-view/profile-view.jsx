@@ -73,6 +73,8 @@ export class ProfileView extends React.Component {
     // by destructuring you dont need to use this.state for these below
     const { movies } = this.props;
     const { favoriteMovies, username } = this.state;
+    const {userData} = this.state
+
     //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
     if (!userData)
       return (
@@ -90,10 +92,10 @@ export class ProfileView extends React.Component {
         <br />
         <Card>
           <Card.Body>
-          <Card.Text>Username: {this.state.userData.Username}</Card.Text>
+          <Card.Text>Username: {userData.Username}</Card.Text>
             <Card.Text>Password: xxxxxx</Card.Text>
-            <Card.Text>Email: {this.state.userData.Email}</Card.Text>
-            <Card.Text>Birthday {this.state.userData.Birthday}</Card.Text>
+            <Card.Text>Email: {userData.Email}</Card.Text>
+            <Card.Text>Birthday {userData.Birthday}</Card.Text>
 
             <Card.Text>
               Favorite Movies:
