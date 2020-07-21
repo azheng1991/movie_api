@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import "./movie-view.scss";
+
+
 
 const goBack = () => {
     window.open('/', '_self');
@@ -41,7 +44,9 @@ export class MovieView extends React.Component {
                     </Link>
                 </div>
 
-                    <button size="sm" onClick={goBack}> Back </button>
+                <Button size="sm" onClick={goBack}>
+    Back
+  </Button>
 
 
             </div >

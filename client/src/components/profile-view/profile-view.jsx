@@ -7,17 +7,14 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
+import Spinner from 'react-bootstrap/Spinner'
+
+
 export class ProfileView extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: null,
-      password: null,
-      email: null,
-      birthday: null,
-      favoriteMovies: [],
-      movies: [],
-      userData: [],
+      userData: null,
     };
   }
   componentDidMount() {
@@ -33,12 +30,6 @@ export class ProfileView extends React.Component {
       .then((res) => {
         console.log(res.data);
         this.setState({
-          username: res.data.Username,
-          password: res.data.Password,
-          email: res.data.Email,
-          birthday: res.data.Birthday,
-          favoriteMovies: res.data.FavoriteMovies,
-          movies: res.data.Movies,
           userData: res.data
         });
       })
@@ -72,7 +63,7 @@ export class ProfileView extends React.Component {
       )
       .then(() => {
         alert("Movie successfully deleted from favorites");
-        this.getUser(UserData);
+        this.getUser(userData);
       })
       .catch((e) => {
         alert("Movie could not be deleted from favorites " + e);
@@ -83,10 +74,14 @@ export class ProfileView extends React.Component {
     const { movies } = this.props;
     const { favoriteMovies, username } = this.state;
     //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
-    if (!username)
+    if (!userData)
       return (
 
-       <center><div class="loader"></div></center>
+       <center>
+       <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+      </center>
 
       );
     return (
@@ -95,19 +90,20 @@ export class ProfileView extends React.Component {
         <br />
         <Card>
           <Card.Body>
-            <Card.Text>Username: {this.state.username}</Card.Text>
+          <Card.Text>Username: {this.state.userData.Username}</Card.Text>
             <Card.Text>Password: xxxxxx</Card.Text>
-            <Card.Text>Email: {this.state.email}</Card.Text>
-            <Card.Text>Birthday {this.state.birthday}</Card.Text>
+            <Card.Text>Email: {this.state.userData.Email}</Card.Text>
+            <Card.Text>Birthday {this.state.userData.Birthday}</Card.Text>
+
             <Card.Text>
               Favorite Movies:
-              {favoriteMovies.length === 0 && (
+              {userData.FavoriteMovies.length === 0 && (
                 <div className="value">No Favorite Movies have been added</div>
               )}
               {/* you need to check the length of the array */}
-              {favoriteMovies.length > 0 && (
+              {userData.FavoriteMovies.length > 0 && (
                 <ul>
-                  {favoriteMovies.map((favoriteMovie) => (
+                  {userData.FavoriteMovies.map((favoriteMovie) => (
                     <li key={favoriteMovie}>
                       <span className="favoriteMovies">
                         {
@@ -142,7 +138,7 @@ export class ProfileView extends React.Component {
               <br />
             </Link>
             {/* you had user here which is not defined, pull username out of state. */}
-            <Button onClick={this.deleteUser(event, username)}>Delete User</Button>
+            {/* <Button onClick={this.deleteUser(event, username)}>Delete User</Button> */}
             <br />
             <br />
             <Link to={`/`}>Back</Link>

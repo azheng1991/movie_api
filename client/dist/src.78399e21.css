@@ -1,3 +1,10 @@
+.label {
+  color: white;
+}
+
+.value {
+  color: white;
+}
 body {
   background-color: blueviolet;
 }
