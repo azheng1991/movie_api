@@ -17,6 +17,7 @@ export class ProfileView extends React.Component {
       birthday: null,
       favoriteMovies: [],
       movies: [],
+      userData: [],
     };
   }
   componentDidMount() {
@@ -38,15 +39,16 @@ export class ProfileView extends React.Component {
           birthday: res.data.Birthday,
           favoriteMovies: res.data.FavoriteMovies,
           movies: res.data.Movies,
+          userData: res.data
         });
       })
       .catch(function (err) {
         console.log(err);
       });
   }
-  deleteUser(e) {
+  deleteUser(event, username) {
     // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
-    // e.preventDefault();
+    event.preventDefault();
     axios
       .delete(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -70,6 +72,7 @@ export class ProfileView extends React.Component {
       )
       .then(() => {
         alert("Movie successfully deleted from favorites");
+        this.getUser(UserData);
       })
       .catch((e) => {
         alert("Movie could not be deleted from favorites " + e);
@@ -82,9 +85,9 @@ export class ProfileView extends React.Component {
     //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
     if (!username)
       return (
-        <div>
-          <span>Loading....</span>
-        </div>
+
+       <center><div class="loader"></div></center>
+
       );
     return (
       <Container>
@@ -139,7 +142,7 @@ export class ProfileView extends React.Component {
               <br />
             </Link>
             {/* you had user here which is not defined, pull username out of state. */}
-            {/* <Button onClick={this.deleteUser(username)}>Delete User</Button> */}
+            <Button onClick={this.deleteUser(event, username)}>Delete User</Button>
             <br />
             <br />
             <Link to={`/`}>Back</Link>

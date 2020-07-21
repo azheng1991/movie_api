@@ -37674,44 +37674,31 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }), _react.default.createElement("div", {
         className: "movie-title"
       }, _react.default.createElement("span", {
-        className: "label"
+        "class": "label"
       }, "Title: "), _react.default.createElement("span", {
-        className: "value"
+        "class": "value"
       }, movie.Title)), _react.default.createElement("div", {
         className: "movie-description"
       }, _react.default.createElement("span", {
-        className: "label"
-      }, "Description "), _react.default.createElement("span", {
-        className: "value"
+        "class": "label"
+      }, " Description: "), _react.default.createElement("span", {
+        "class": "value"
       }, movie.Description)), _react.default.createElement("div", {
-        className: "movie-genre"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Genre: "), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Genre.Name)), _react.default.createElement("div", {
-        className: "movie-director"
-      }, _react.default.createElement("span", {
-        className: "label"
-      }, "Director "), _react.default.createElement("span", {
-        className: "value"
-      }, movie.Director.Name)), _react.default.createElement("div", {
-        className: "button"
-      }, _react.default.createElement("button", {
-        onClick: goBack
-      }, " Back ")), _react.default.createElement("div", {
-        className: "director button"
-      }, _react.default.createElement(_reactRouterDom.Link, {
-        to: "/directors/".concat(movie.Director.Name)
-      }, _react.default.createElement(_Button.default, {
-        variant: "link"
-      }, "Director"))), _react.default.createElement("div", {
         className: "genre button"
       }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/genres/".concat(movie.Genre.Name)
       }, _react.default.createElement(_Button.default, {
         variant: "link"
-      }, "Genre"))));
+      }, "Genre"))), _react.default.createElement("div", {
+        className: "director button"
+      }, _react.default.createElement(_reactRouterDom.Link, {
+        to: "/directors/".concat(movie.Director.Name)
+      }, _react.default.createElement(_Button.default, {
+        variant: "link"
+      }, "Director"))), _react.default.createElement("button", {
+        size: "sm",
+        onClick: goBack
+      }, " Back "));
     }
   }]);
 
@@ -39057,7 +39044,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       email: null,
       birthday: null,
       favoriteMovies: [],
-      movies: []
+      movies: [],
+      userData: []
     };
     return _this;
   }
@@ -39088,7 +39076,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           email: res.data.Email,
           birthday: res.data.Birthday,
           favoriteMovies: res.data.FavoriteMovies,
-          movies: res.data.Movies
+          movies: res.data.Movies,
+          userData: res.data
         });
       }).catch(function (err) {
         console.log(err);
@@ -39096,9 +39085,10 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "deleteUser",
-    value: function deleteUser(e) {
+    value: function deleteUser(event, username) {
       // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
-      // e.preventDefault();
+      event.preventDefault();
+
       _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
@@ -39112,6 +39102,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "deleteFavoriteMovie",
     value: function deleteFavoriteMovie(event, favoriteMovie) {
+      var _this3 = this;
+
       event.preventDefault();
       var user = localStorage.getItem("user");
 
@@ -39121,6 +39113,8 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function () {
         alert("Movie successfully deleted from favorites");
+
+        _this3.getUser(UserData);
       }).catch(function (e) {
         alert("Movie could not be deleted from favorites " + e);
       });
@@ -39128,7 +39122,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       // by destructuring you dont need to use this.state for these below
       var movies = this.props.movies;
@@ -39136,7 +39130,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           favoriteMovies = _this$state.favoriteMovies,
           username = _this$state.username; //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
 
-      if (!username) return _react.default.createElement("div", null, _react.default.createElement("span", null, "Loading...."));
+      if (!username) return _react.default.createElement("center", null, _react.default.createElement("div", {
+        "class": "loader"
+      }));
       return _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.email), _react.default.createElement(_Card.default.Text, null, "Birthday ", this.state.birthday), _react.default.createElement(_Card.default.Text, null, "Favorite Movies:", favoriteMovies.length === 0 && _react.default.createElement("div", {
         className: "value"
       }, "No Favorite Movies have been added"), favoriteMovies.length > 0 && _react.default.createElement("ul", null, favoriteMovies.map(function (favoriteMovie) {
@@ -39155,14 +39151,16 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
           variant: "secondary",
           size: "sm",
           onClick: function onClick(event) {
-            return _this3.deleteFavoriteMovie(event, favoriteMovie);
+            return _this4.deleteFavoriteMovie(event, favoriteMovie);
           }
         }, "Delete"));
       }))), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/update/:Username"
       }, _react.default.createElement(_Button.default, {
         variant: "primary"
-      }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
+        onClick: this.deleteUser(event, username)
+      }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, "Back"))));
     }
@@ -49832,7 +49830,7 @@ function UpdateView(props) {
       var data = res.data;
       alert('Your profile data was updated successfully');
       localStorage.setItem('user', data.Username);
-      window.open("/users/".concat(localStorage.getItem('user')));
+      window.location.href = "/profile";
     }).catch(function (error) {
       alert('error updating user ' + error);
     });
@@ -50269,7 +50267,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51950" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53013" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -23,36 +23,27 @@ export class MovieView extends React.Component {
             <div className="movie-view">
                 <img className="movie-poster" src={movie.ImagePath} />
                 <div className="movie-title">
-                    <span className="label">Title: </span>
-                    <span className="value">{movie.Title}</span>
+                    <span class="label">Title: </span>
+                    <span class="value">{movie.Title}</span>
                 </div>
                 <div className="movie-description">
-                    <span className="label">Description </span>
-                    <span className="value">{movie.Description}</span>
-                </div>
-                <div className="movie-genre">
-                    <span className="label">Genre: </span>
-                    <span className="value">{movie.Genre.Name}</span>
-
-                </div>
-                <div className="movie-director">
-                    <span className="label">Director </span>
-                    <span className="value">{movie.Director.Name}</span>
-
-                </div>
-                <div className="button">
-                    <button onClick={goBack}> Back </button>
-                </div>
-                <div className="director button">
-                    <Link to={`/directors/${movie.Director.Name}`}>
-                        <Button variant="link">Director</Button>
-                    </Link>
+                    <span class="label"> Description: </span>
+                    <span class="value">{movie.Description}</span>
                 </div>
                 <div className="genre button">
                     <Link to={`/genres/${movie.Genre.Name}`}>
                         <Button variant="link">Genre</Button>
                     </Link>
                 </div>
+                <div className="director button">
+                    <Link to={`/directors/${movie.Director.Name}`}>
+                        <Button variant="link">Director</Button>
+                    </Link>
+                </div>
+
+                    <button size="sm" onClick={goBack}> Back </button>
+
+
             </div >
         );
     }

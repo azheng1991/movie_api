@@ -34,7 +34,7 @@ export function UpdateView(props) {
                 const data = res.data;
                 alert('Your profile data was updated successfully');
                 localStorage.setItem('user', data.Username);
-                window.open(`/users/${localStorage.getItem('user')}`);
+                window.location.href = `/profile`;
             })
             .catch(error => {
                 alert('error updating user ' + error);
