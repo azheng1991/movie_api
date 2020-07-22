@@ -199,9 +199,7 @@ app.post(
 // Allow users to update their user info (username, password, email, date of birth)
 app.put(
   "/users/:Username",
-  passport.authenticate("jwt", {
-    session: false,
-  }),
+
   (req, res) => {
     Users.findOneAndUpdate(
       {
