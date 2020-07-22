@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const Models = require("./models.js");
 const cors = require("cors");
 const { check, validationResult } = require("express-validator");
+const path = require("path");
 
 app.use(cors());
 
@@ -33,6 +34,11 @@ mongoose.connect(process.env.CONNECTION_URI, {
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
+app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.use(morgan("common"));
 

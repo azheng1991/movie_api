@@ -1,5 +1,6 @@
-import React, {Component, useState } from "react";
+import React from 'react';
 import axios from "axios";
+import { connect } from 'react-redux';
 
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
@@ -11,6 +12,8 @@ import Nav from "react-bootstrap/Nav";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 
+import { setMovies, setUser } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
 import {MovieCard} from "../movie-card/movie-card";
 import {MovieView} from '../movie-view/movie-view';
 import {LoginView} from '../login-view/login-view';
@@ -24,49 +27,61 @@ import { UpdateView } from "../profile-view/update-view";
 
 import "./main-view.scss";
 
-export class MainView extends Component {
+class MainView extends React.Component {
   constructor() {
     super();
 
     this.state = {
-      movies: [],
       user: null,
-      register: false,
     };
   }
 
-  getMovies = (token) => {
-    const endpoint = "https://desolate-forest-59381.herokuapp.com/movies";
-    axios
-      .get(endpoint, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        this.setState({
-          movies: response.data,
-        })
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  };
 
-  componentDidMount = () => {
-    let accessToken = localStorage.getItem("token");
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user"),
-        userData: localStorage.getItem("data"),
-      })
-      this.getMovies(accessToken);
-    }
-  };
 
-  onMovieClick = (movie) => {
+// export class MainView extends Component {
+//   constructor() {
+//     super();
+
+//     this.state = {
+//       movies: [],
+//       user: null,
+//       register: false,
+//     };
+//   }
+
+
+componentDidMount = () => {
+  let accessToken = localStorage.getItem("token");
+  if (accessToken !== null) {
     this.setState({
-      selectedMovie: movie,
+      user: localStorage.getItem("user"),
+      userData: localStorage.getItem("data"),
     })
-  };
+    this.getMovies(accessToken);
+  }
+};
+
+
+
+getMovies(token) {
+  axios
+    .get('https://desolate-forest-59381.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => {
+      // #1
+      this.props.setMovies(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
+
+  // onMovieClick = (movie) => {
+  //   this.setState({
+  //     selectedMovie: movie,
+  //   })
+  // };
 
   onLoggedIn = (authData) => {
     this.setState({
@@ -81,7 +96,6 @@ export class MainView extends Component {
   onLogOut = () => {
     this.setState({
       user: null,
-      register: null,
     })
 
     localStorage.removeItem("token");
@@ -89,13 +103,15 @@ export class MainView extends Component {
   };
 
   render() {
-    const { movies, user } = this.state;
+    let { movies } = this.props;
+    let { user } = this.state;
+
 
     if (!movies) return <div className="main-view" />;
 
     return (
       <div className="main-view">
-        <Router>
+        <Router basename="/client">
         <Navbar bg="dark" variant="dark">
             <Link to={"/"}>
               <Navbar.Brand className="main-title">MyFlix</Navbar.Brand>
@@ -205,3 +221,10 @@ export class MainView extends Component {
     );
   }
 }
+
+
+let mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setMovies } )(MainView);
