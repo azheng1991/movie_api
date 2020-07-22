@@ -7,6 +7,7 @@ import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+import Navbar from "react-bootstrap/Button";
 
 
 import './update-view.scss';
@@ -33,7 +34,7 @@ export function UpdateView(props) {
                 const data = res.data;
                 alert('Your profile data was updated successfully');
                 localStorage.setItem('user', data.Username);
-                window.open(`/users/${localStorage.getItem('user')}`);
+                window.location.href = `/profile`;
             })
             .catch(error => {
                 alert('error updating user ' + error);

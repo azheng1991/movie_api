@@ -37,18 +37,13 @@ export class ProfileView extends React.Component {
   }
   deleteUser(event, username) {
     // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
-
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
     event.preventDefault();
-    const user = localStorage.getItem("user");
     axios
-      .delete(`https://desolate-forest-59381.herokuapp.com/users/${user}`, {
+      .delete(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then(() => {
         alert("User successfully deleted from registry");
-        window.open('/', '_self');
       })
       .catch((e) => {
         alert("User could not be deleted from registry " + e);

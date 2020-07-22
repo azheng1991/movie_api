@@ -39123,18 +39123,14 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     key: "deleteUser",
     value: function deleteUser(event, username) {
       // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
       event.preventDefault();
-      var user = localStorage.getItem("user");
 
-      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(user), {
+      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
         }
       }).then(function () {
         alert("User successfully deleted from registry");
-        window.open('/', '_self');
       }).catch(function (e) {
         alert("User could not be deleted from registry " + e);
       });
@@ -49766,6 +49762,8 @@ var _reactRouterDom = require("react-router-dom");
 
 var _reactBootstrap = require("react-bootstrap");
 
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
 require("./update-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -49825,7 +49823,7 @@ function UpdateView(props) {
       var data = res.data;
       alert('Your profile data was updated successfully');
       localStorage.setItem('user', data.Username);
-      window.open("/users/".concat(localStorage.getItem('user')));
+      window.location.href = "/profile";
     }).catch(function (error) {
       alert('error updating user ' + error);
     });
@@ -49894,7 +49892,7 @@ function UpdateView(props) {
     onClick: handleUpdate
   }, "Update")))))));
 }
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./update-view.scss":"components/profile-view/update-view.scss"}],"components/main-view/main-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./update-view.scss":"components/profile-view/update-view.scss"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -50262,7 +50260,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54439" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55659" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
