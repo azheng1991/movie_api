@@ -122,25 +122,19 @@ app.get(
 );
 
 // Get user by username
-app.get(
-  "/users/:Username",
-  passport.authenticate("jwt", {
-    session: false,
-  }),
-  (req, res) => {
-    Users.findOne({
-      Username: req.params.Username,
+app.get("/users/:Username", (req, res) => {
+  Users.findOne({
+    Username: req.params.Username,
+  })
+    .then((user) => {
+      console.log(user.FavoriteMovies);
+      res.json(user);
     })
-      .then((user) => {
-        console.log(user.FavoriteMovies);
-        res.json(user);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
 //register a new user
 app.post(

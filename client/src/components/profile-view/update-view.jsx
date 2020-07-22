@@ -6,8 +6,8 @@ import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import Navbar from "react-bootstrap/Button";
+
+import Button from "react-bootstrap/Button";
 
 
 import './update-view.scss';
@@ -43,10 +43,10 @@ export function UpdateView(props) {
     };
 
     return (
-        <div className="update-view justify-content-center">
+        <Container className="update-view justify-content-center">
             <span className="d-flex align-items-center mb-4">
                 <Link to={`/profile`}>
-                    <i className="material-icons">Back</i>
+                    <button>Back</button>
                 </Link>
                 <h1 className="">Update {user}'s profile</h1>
             </span>
@@ -84,6 +84,6 @@ export function UpdateView(props) {
 
                 </Col>
             </Row>
-        </div>
+        </Container>
     );
 }

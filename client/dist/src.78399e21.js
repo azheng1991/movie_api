@@ -39109,11 +39109,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       var user = localStorage.getItem("user");
 
-      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/".concat(user), {
-        headers: {
-          Authorization: "Bearer ".concat(token)
-        }
-      }).then(function (res) {
+      _axios.default.get("https://desolate-forest-59381.herokuapp.com/users/".concat(user)).then(function (res) {
         console.log(res.data);
 
         _this2.setState({
@@ -39127,14 +39123,18 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
     key: "deleteUser",
     value: function deleteUser(event, username) {
       // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       event.preventDefault();
+      var user = localStorage.getItem("user");
 
-      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(username), {
+      _axios.default.delete("https://desolate-forest-59381.herokuapp.com/users/".concat(user), {
         headers: {
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
         }
       }).then(function () {
         alert("User successfully deleted from registry");
+        window.open('/', '_self');
       }).catch(function (e) {
         alert("User could not be deleted from registry " + e);
       });
@@ -39154,7 +39154,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }).then(function () {
         alert("Movie successfully deleted from favorites");
 
-        _this3.getUser(userData);
+        _this3.getUser(_this3.state.userData);
       }).catch(function (e) {
         alert("Movie could not be deleted from favorites " + e);
       });
@@ -39166,9 +39166,6 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
 
       // by destructuring you dont need to use this.state for these below
       var movies = this.props.movies;
-      var _this$state = this.state,
-          favoriteMovies = _this$state.favoriteMovies,
-          username = _this$state.username;
       var userData = this.state.userData; //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
 
       if (!userData) return _react.default.createElement("center", null, _react.default.createElement(_Spinner.default, {
@@ -39177,9 +39174,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement("span", {
         className: "sr-only"
       }, "Loading...")));
-      return _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", userData.Username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", userData.Email), _react.default.createElement(_Card.default.Text, null, "Birthday ", userData.Birthday), _react.default.createElement(_Card.default.Text, null, "Favorite Movies:", userData.FavoriteMovies.length === 0 && _react.default.createElement("div", {
-        className: "value"
-      }, "No Favorite Movies have been added"), userData.FavoriteMovies.length > 0 && _react.default.createElement("ul", null, userData.FavoriteMovies.map(function (favoriteMovie) {
+      return _react.default.createElement(_Container.default, null, _react.default.createElement("h1", null, "My Profile"), _react.default.createElement("br", null), _react.default.createElement(_Card.default, null, _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Text, null, "Username: ", this.state.userData.Username), _react.default.createElement(_Card.default.Text, null, "Password: xxxxxx"), _react.default.createElement(_Card.default.Text, null, "Email: ", this.state.userData.Email), _react.default.createElement(_Card.default.Text, null, "Birthday: ", this.state.userData.BirthDate), _react.default.createElement(_Card.default.Text, null, "Favorite Movies:", userData.FavoriteMovies.length === 0 && 'No Favorite Movies have been added.', userData.FavoriteMovies.length > 0 && _react.default.createElement("ul", null, userData.FavoriteMovies.map(function (favoriteMovie) {
         return _react.default.createElement("li", {
           key: favoriteMovie
         }, _react.default.createElement("span", {
@@ -39202,7 +39197,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         to: "/update/:Username"
       }, _react.default.createElement(_Button.default, {
         variant: "primary"
-      }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
+      }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
+        onClick: this.deleteUser(event, userData.Username)
+      }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, "Back"))));
     }
@@ -49836,15 +49833,13 @@ function UpdateView(props) {
     });
   };
 
-  return _react.default.createElement("div", {
+  return _react.default.createElement(_reactBootstrap.Container, {
     className: "update-view justify-content-center"
   }, _react.default.createElement("span", {
     className: "d-flex align-items-center mb-4"
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/profile"
-  }, _react.default.createElement("i", {
-    className: "material-icons"
-  }, "Back")), _react.default.createElement("h1", {
+  }, _react.default.createElement("button", null, "Back")), _react.default.createElement("h1", {
     className: ""
   }, "Update ", user, "'s profile")), _react.default.createElement("p", {
     className: "lead pl-3 mb-4 warning"
@@ -49892,7 +49887,7 @@ function UpdateView(props) {
     }
   })), _react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-end"
-  }, _react.default.createElement(_reactBootstrap.Button, {
+  }, _react.default.createElement(_Button.default, {
     className: "update-btn mr-3",
     variant: "primary",
     type: "submit",
@@ -50267,7 +50262,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55586" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54694" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -24,9 +24,7 @@ export class ProfileView extends React.Component {
   getUser(token) {
     const user = localStorage.getItem("user");
     axios
-      .get(`https://desolate-forest-59381.herokuapp.com/users/${user}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(`https://desolate-forest-59381.herokuapp.com/users/${user}`)
       .then((res) => {
         console.log(res.data);
         this.setState({
@@ -39,13 +37,18 @@ export class ProfileView extends React.Component {
   }
   deleteUser(event, username) {
     // if you are going to use this, event needs to be one of the arguments. just typing event means nothing
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     event.preventDefault();
+    const user = localStorage.getItem("user");
     axios
-      .delete(`https://desolate-forest-59381.herokuapp.com/users/${username}`, {
+      .delete(`https://desolate-forest-59381.herokuapp.com/users/${user}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then(() => {
         alert("User successfully deleted from registry");
+        window.open('/', '_self');
       })
       .catch((e) => {
         alert("User could not be deleted from registry " + e);
@@ -63,7 +66,7 @@ export class ProfileView extends React.Component {
       )
       .then(() => {
         alert("Movie successfully deleted from favorites");
-        this.getUser(userData);
+        this.getUser(this.state.userData);
       })
       .catch((e) => {
         alert("Movie could not be deleted from favorites " + e);
@@ -72,8 +75,7 @@ export class ProfileView extends React.Component {
   render() {
     // by destructuring you dont need to use this.state for these below
     const { movies } = this.props;
-    const { favoriteMovies, username } = this.state;
-    const {userData} = this.state
+    const { userData }=this.state
 
     //add a loading element during the data fetching with axios. try adding a spinner or loading icon in its place
     if (!userData)
@@ -92,15 +94,15 @@ export class ProfileView extends React.Component {
         <br />
         <Card>
           <Card.Body>
-          <Card.Text>Username: {userData.Username}</Card.Text>
+          <Card.Text>Username: {this.state.userData.Username}</Card.Text>
             <Card.Text>Password: xxxxxx</Card.Text>
-            <Card.Text>Email: {userData.Email}</Card.Text>
-            <Card.Text>Birthday {userData.Birthday}</Card.Text>
+            <Card.Text>Email: {this.state.userData.Email}</Card.Text>
+            <Card.Text>Birthday: {this.state.userData.BirthDate}</Card.Text>
 
             <Card.Text>
               Favorite Movies:
               {userData.FavoriteMovies.length === 0 && (
-                <div className="value">No Favorite Movies have been added</div>
+                'No Favorite Movies have been added.'
               )}
               {/* you need to check the length of the array */}
               {userData.FavoriteMovies.length > 0 && (
@@ -140,7 +142,7 @@ export class ProfileView extends React.Component {
               <br />
             </Link>
             {/* you had user here which is not defined, pull username out of state. */}
-            {/* <Button onClick={this.deleteUser(event, username)}>Delete User</Button> */}
+            <Button onClick={this.deleteUser(event, userData.Username)}>Delete User</Button>
             <br />
             <br />
             <Link to={`/`}>Back</Link>
