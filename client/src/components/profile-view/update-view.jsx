@@ -20,6 +20,7 @@ export function UpdateView(props) {
     const [email, updateEmail] = useState('');
     const [birthday, updateBirthday] = useState('');
 
+
     const handleUpdate = (e) => {
         e.preventDefault();
         axios.put(`https://desolate-forest-59381.herokuapp.com/users/${user}`, {
