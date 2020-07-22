@@ -19,16 +19,16 @@ const Users = Models.User;
 // var allowedOrigins = ['http://localhost:3000', 'http://testsite.com'];
 
 // // connect locally
-// mongoose.connect("mongodb://localhost:27017/myFlixDB", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-//Connect to online database hosted on MongoDB Atlas
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect("mongodb://localhost:27017/myFlixDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+//Connect to online database hosted on MongoDB Atlas
+// mongoose.connect(process.env.CONNECTION_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 
 app.use(bodyParser.json());
 
@@ -123,17 +123,20 @@ app.get(
 
 // Get user by username
 app.get("/users/:Username", (req, res) => {
-  Users.findOne({
-    Username: req.params.Username,
-  })
-    .then((user) => {
-      console.log(user.FavoriteMovies);
-      res.json(user);
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+    Users.findOne({
+      Username: req.params.Username,
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
+      .then((user) => {
+        console.log(user.FavoriteMovies);
+        res.json(user);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
 });
 
 //register a new user
