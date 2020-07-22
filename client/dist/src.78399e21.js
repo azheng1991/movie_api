@@ -49766,8 +49766,6 @@ var _reactRouterDom = require("react-router-dom");
 
 var _reactBootstrap = require("react-bootstrap");
 
-var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
-
 require("./update-view.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -49821,25 +49819,27 @@ function UpdateView(props) {
       Email: email
     }, {
       headers: {
-        Authorization: "Bearer ".concat(token)
+        Authorization: "Bearer ".concat(localStorage.getItem('token'))
       }
     }).then(function (res) {
       var data = res.data;
       alert('Your profile data was updated successfully');
       localStorage.setItem('user', data.Username);
-      window.location.href = "/profile";
+      window.open("/users/".concat(localStorage.getItem('user')));
     }).catch(function (error) {
       alert('error updating user ' + error);
     });
   };
 
-  return _react.default.createElement(_reactBootstrap.Container, {
+  return _react.default.createElement("div", {
     className: "update-view justify-content-center"
   }, _react.default.createElement("span", {
     className: "d-flex align-items-center mb-4"
   }, _react.default.createElement(_reactRouterDom.Link, {
     to: "/profile"
-  }, _react.default.createElement("button", null, "Back")), _react.default.createElement("h1", {
+  }, _react.default.createElement("i", {
+    className: "material-icons"
+  }, "Back")), _react.default.createElement("h1", {
     className: ""
   }, "Update ", user, "'s profile")), _react.default.createElement("p", {
     className: "lead pl-3 mb-4 warning"
@@ -49887,14 +49887,14 @@ function UpdateView(props) {
     }
   })), _react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-end"
-  }, _react.default.createElement(_Button.default, {
+  }, _react.default.createElement(_reactBootstrap.Button, {
     className: "update-btn mr-3",
     variant: "primary",
     type: "submit",
     onClick: handleUpdate
   }, "Update")))))));
 }
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","./update-view.scss":"components/profile-view/update-view.scss"}],"components/main-view/main-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./update-view.scss":"components/profile-view/update-view.scss"}],"components/main-view/main-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -50262,7 +50262,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54694" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54439" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -6,8 +6,7 @@ import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-
-import Button from "react-bootstrap/Button";
+import { Button } from 'react-bootstrap';
 
 
 import './update-view.scss';
@@ -20,7 +19,6 @@ export function UpdateView(props) {
     const [email, updateEmail] = useState('');
     const [birthday, updateBirthday] = useState('');
 
-
     const handleUpdate = (e) => {
         e.preventDefault();
         axios.put(`https://desolate-forest-59381.herokuapp.com/users/${user}`, {
@@ -29,13 +27,13 @@ export function UpdateView(props) {
             Birthday: birthday,
             Email: email
         }, {
-            headers: { Authorization: `Bearer ${token}` },
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
             .then(res => {
                 const data = res.data;
                 alert('Your profile data was updated successfully');
                 localStorage.setItem('user', data.Username);
-                window.location.href = `/profile`;
+                window.open(`/users/${localStorage.getItem('user')}`);
             })
             .catch(error => {
                 alert('error updating user ' + error);
@@ -44,10 +42,10 @@ export function UpdateView(props) {
     };
 
     return (
-        <Container className="update-view justify-content-center">
+        <div className="update-view justify-content-center">
             <span className="d-flex align-items-center mb-4">
                 <Link to={`/profile`}>
-                    <button>Back</button>
+                    <i className="material-icons">Back</i>
                 </Link>
                 <h1 className="">Update {user}'s profile</h1>
             </span>
@@ -85,6 +83,6 @@ export function UpdateView(props) {
 
                 </Col>
             </Row>
-        </Container>
+        </div>
     );
 }
