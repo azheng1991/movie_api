@@ -39131,6 +39131,7 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function () {
         alert("User successfully deleted from registry");
+        window.location.href = "/profile";
       }).catch(function (e) {
         alert("User could not be deleted from registry " + e);
       });
@@ -39194,7 +39195,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
       }, _react.default.createElement(_Button.default, {
         variant: "primary"
       }, "Update Profile"), _react.default.createElement("br", null), _react.default.createElement("br", null)), _react.default.createElement(_Button.default, {
-        onClick: this.deleteUser(event, userData.Username)
+        onClick: function onClick() {
+          return _this4.deleteUser(event, userData.Username);
+        }
       }, "Delete User"), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, "Back"))));
@@ -50260,7 +50263,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55659" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56314" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

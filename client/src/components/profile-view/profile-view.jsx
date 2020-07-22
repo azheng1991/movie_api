@@ -44,6 +44,7 @@ export class ProfileView extends React.Component {
       })
       .then(() => {
         alert("User successfully deleted from registry");
+        window.location.href = `/profile`;
       })
       .catch((e) => {
         alert("User could not be deleted from registry " + e);
@@ -137,7 +138,9 @@ export class ProfileView extends React.Component {
               <br />
             </Link>
             {/* you had user here which is not defined, pull username out of state. */}
-            <Button onClick={this.deleteUser(event, userData.Username)}>Delete User</Button>
+            <Button onClick={() => this.deleteUser(event, userData.Username)}>
+              Delete User
+            </Button>
             <br />
             <br />
             <Link to={`/`}>Back</Link>
