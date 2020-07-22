@@ -197,29 +197,35 @@ app.post(
 );
 
 // Allow users to update their user info (username, password, email, date of birth)
-app.put("/users/:Username", (req, res) => {
-  Users.findOneAndUpdate(
-    {
-      Username: req.params.Username,
-    },
-    {
-      $set: {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        BirthDate: req.body.BirthDate,
+app.put(
+  "/users/:Username",
+  passport.authenticate("jwt", {
+    session: false,
+  }),
+  (req, res) => {
+    Users.findOneAndUpdate(
+      {
+        Username: req.params.Username,
       },
-    },
-    {
-      new: true,
-    }
-  )
-    .then((updatedUser) => res.json(updatedUser))
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+      {
+        $set: {
+          Username: req.body.Username,
+          Password: req.body.Password,
+          Email: req.body.Email,
+          BirthDate: req.body.BirthDate,
+        },
+      },
+      {
+        new: true,
+      }
+    )
+      .then((updatedUser) => res.json(updatedUser))
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // Allow users to add a movie to their list of favorites
 app.post(

@@ -49821,7 +49821,7 @@ function UpdateView(props) {
       Email: email
     }, {
       headers: {
-        Authorization: "Bearer ".concat(localStorage.getItem('token'))
+        Authorization: "Bearer ".concat(token)
       }
     }).then(function (res) {
       var data = res.data;

@@ -29,7 +29,7 @@ export function UpdateView(props) {
             Birthday: birthday,
             Email: email
         }, {
-            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+            headers: { Authorization: `Bearer ${token}` },
         })
             .then(res => {
                 const data = res.data;
