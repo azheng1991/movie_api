@@ -137,18 +137,18 @@ getMovies(token) {
                 exact
                 path="/"
                 render={() => {
-                  if (!user) {
+                  if (!user)
                     return (
                       <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                     );
-                  }
-                  return movies.map((m) => {
-                    return (
-                      <Col key={m._id} xs={12} sm={6} md={4}>
+                  return (
+                    <div className="moviesList">
+                      {/* {movies.map((m) => (
                         <MovieCard key={m._id} movie={m} />
-                      </Col>
-                    );
-                  });
+                      ))} */}
+                      <MoviesList movies={movies} />;
+                    </div>
+                 );
                 }}
               />
               <Route
