@@ -34,7 +34,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
 app.use(bodyParser.json());
 
 app.use(express.static("public"));
-app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+app.use("/client", express.static(path.resolve(__dirname, "client/dist")));
 
 app.get("/client/*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client/dist/index.html"));
