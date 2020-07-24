@@ -41288,11 +41288,9 @@ var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactRouterDom = require("react-router-dom");
 
-var goBack = function goBack() {
-  window.open('/client/movies/:movieId', '_self');
-};
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function GenreView(props) {
   var movie = props.movie;
@@ -41315,12 +41313,14 @@ function GenreView(props) {
     className: "label"
   }, "Description: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Genre.Description)), _react.default.createElement(_Button.default, {
-    size: "sm",
-    onClick: goBack
-  }, "Back")))));
+  }, movie.Genre.Description)), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/movies/".concat(movie._id)
+  }, _react.default.createElement(_Button.default, {
+    variant: "link",
+    className: "Back Button"
+  }, "Back"))))));
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41338,11 +41338,9 @@ var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 
 var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _reactRouterDom = require("react-router-dom");
 
-var goBack = function goBack() {
-  window.open('/client/movies/:movieId', '_self');
-};
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function DirectorView(props) {
   var movie = props.movie;
@@ -41371,12 +41369,14 @@ function DirectorView(props) {
     className: "label"
   }, "BirthDate: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Director.Birth)), _react.default.createElement(_Button.default, {
-    size: "sm",
-    onClick: goBack
-  }, "Back")))));
+  }, movie.Director.Birth)), _react.default.createElement(_reactRouterDom.Link, {
+    to: "/movies/".concat(movie._id)
+  }, _react.default.createElement(_Button.default, {
+    variant: "link",
+    className: "Back Button"
+  }, "Back"))))));
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"../node_modules/react-bootstrap/esm/ListGroupItem.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"../node_modules/react-bootstrap/esm/ListGroupItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

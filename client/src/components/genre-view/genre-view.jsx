@@ -1,13 +1,11 @@
-
 import React from 'react';
 import Container from "react-bootstrap/Container";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
-const goBack = () => {
-    window.open('/client/movies/:movieId', '_self');
-}
+import { Link } from 'react-router-dom';
+
 
 export function GenreView(props) {
     const { movie } = props;
@@ -25,10 +23,9 @@ export function GenreView(props) {
                             <span className="label">Description: </span>
                             <span className="value">{movie.Genre.Description}</span>
                         </div>
-
-                        <Button size="sm" onClick={goBack}>
-    Back
-  </Button>
+                        <Link to={`/movies/${movie._id}`}>
+                            <Button variant="link" className="Back Button">Back</Button>
+                          </Link>
 
 
                     </div>
