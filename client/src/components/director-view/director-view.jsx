@@ -2,6 +2,11 @@ import React from 'react';
 import Container from "react-bootstrap/Container";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+
+const goBack = () => {
+    window.open('/client/movies/:movieId', '_self');
+}
 
 export function DirectorView(props) {
     const { movie } = props;
@@ -23,6 +28,10 @@ export function DirectorView(props) {
                             <span className="label">BirthDate: </span>
                             <span className="value">{movie.Director.Birth}</span>
                         </div>
+                        <Button size="sm" onClick={goBack}>
+    Back
+  </Button>
+
                     </div>
                 </Col>
             </Row>

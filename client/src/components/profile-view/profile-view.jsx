@@ -44,7 +44,9 @@ export class ProfileView extends React.Component {
       })
       .then(() => {
         alert("User successfully deleted from registry");
-        window.location.href = `/profile`;
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = `/`;
       })
       .catch((e) => {
         alert("User could not be deleted from registry " + e);

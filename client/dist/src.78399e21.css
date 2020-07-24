@@ -5,6 +5,16 @@
 .value {
   color: white;
 }
+form label {
+  color: #fff;
+}
+h1 {
+  color: white;
+}
+
+.text {
+  color: white;
+}
 body {
   background-color: blueviolet;
 }

@@ -50,7 +50,7 @@ export function UpdateView(props) {
                 </Link>
                 <h1 className="">Update {user}'s profile</h1>
             </span>
-            <p className="lead pl-3 mb-4 warning">Please make sure you fill in every input field before pressing update-button.
+            <p className="text">Please make sure you fill in every input field before pressing update-button.
       If you want to keep some data as it is, fill in original data again.</p>
 
 

@@ -40882,7 +40882,11 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           movie = _this$props.movie,
           user = _this$props.user;
-      return _react.default.createElement(_Card.default, {
+      return _react.default.createElement("div", {
+        "class": "mt-3"
+      }, _react.default.createElement("div", {
+        "class": "mr-3"
+      }, _react.default.createElement(_Card.default, {
         style: {
           width: "20rem",
           height: "50rem"
@@ -40899,7 +40903,7 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
         onClick: function onClick(e) {
           return _this.addFavoriteMovie(movie);
         }
-      }, "Add Favorite")));
+      }, "Add Favorite")))));
     }
   }]);
 
@@ -41282,7 +41286,13 @@ var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
 
 var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var goBack = function goBack() {
+  window.open('/client/movies/:movieId', '_self');
+};
 
 function GenreView(props) {
   var movie = props.movie;
@@ -41305,9 +41315,12 @@ function GenreView(props) {
     className: "label"
   }, "Description: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Genre.Description))))));
+  }, movie.Genre.Description)), _react.default.createElement(_Button.default, {
+    size: "sm",
+    onClick: goBack
+  }, "Back")))));
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"components/director-view/director-view.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41323,7 +41336,13 @@ var _Col = _interopRequireDefault(require("react-bootstrap/Col"));
 
 var _Row = _interopRequireDefault(require("react-bootstrap/Row"));
 
+var _Button = _interopRequireDefault(require("react-bootstrap/Button"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var goBack = function goBack() {
+  window.open('/client/movies/:movieId', '_self');
+};
 
 function DirectorView(props) {
   var movie = props.movie;
@@ -41352,9 +41371,12 @@ function DirectorView(props) {
     className: "label"
   }, "BirthDate: "), _react.default.createElement("span", {
     className: "value"
-  }, movie.Director.Birth))))));
+  }, movie.Director.Birth)), _react.default.createElement(_Button.default, {
+    size: "sm",
+    onClick: goBack
+  }, "Back")))));
 }
-},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js"}],"../node_modules/react-bootstrap/esm/ListGroupItem.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js"}],"../node_modules/react-bootstrap/esm/ListGroupItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41634,7 +41656,9 @@ var ProfileView = /*#__PURE__*/function (_React$Component) {
         }
       }).then(function () {
         alert("User successfully deleted from registry");
-        window.location.href = "/profile";
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/";
       }).catch(function (e) {
         alert("User could not be deleted from registry " + e);
       });
@@ -52346,7 +52370,7 @@ function UpdateView(props) {
   }, "Back")), _react.default.createElement("h1", {
     className: ""
   }, "Update ", user, "'s profile")), _react.default.createElement("p", {
-    className: "lead pl-3 mb-4 warning"
+    className: "text"
   }, "Please make sure you fill in every input field before pressing update-button. If you want to keep some data as it is, fill in original data again."), _react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, _react.default.createElement(_reactBootstrap.Col, null, _react.default.createElement(_reactBootstrap.Container, {
@@ -52842,7 +52866,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50869" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55805" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
