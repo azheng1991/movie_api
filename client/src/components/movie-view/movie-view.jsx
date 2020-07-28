@@ -7,7 +7,7 @@ import "./movie-view.scss";
 
 
 const goBack = () => {
-    window.open('/', '_self');
+    window.open('/client', '_self');
 }
 
 export class MovieView extends React.Component {
