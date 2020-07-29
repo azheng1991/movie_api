@@ -110,7 +110,7 @@ export class ProfileView extends React.Component {
                       <span className="favoriteMovies">
                         {
                           movies.find((movie) => movie._id === favoriteMovie)
-                            .Title
+.Title
                         }
                       </span>
                       <Link to={`/movies/${favoriteMovie}`}>
