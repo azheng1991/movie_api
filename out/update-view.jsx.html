@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: update-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: update-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import Navbar from "react-bootstrap/Button";
+
+
+import './update-view.scss';
+
+export function UpdateView(props) {
+    const { user } = props;
+
+    const [username, updateUsername] = useState('');
+    const [password, updatePassword] = useState('');
+    const [email, updateEmail] = useState('');
+    const [birthday, updateBirthday] = useState('');
+
+
+
+ /**
+   * Update user details
+   * @function handleUpdate
+   * @axios
+   * @param {string} username
+   * @param {string} password
+   * @param {string} email
+   * @param {date} birthday
+   */
+
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        axios.put(`https://desolate-forest-59381.herokuapp.com/users/${user}`, {
+            Username: username,
+            Password: password,
+            Birthday: birthday,
+            Email: email
+        }, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
+            .then(res => {
+                const data = res.data;
+                alert('Your profile data was updated successfully');
+                localStorage.setItem('user', data.Username);
+                window.location.href = `/client/profile`;
+            })
+            .catch(error => {
+                alert('error updating user ' + error);
+            })
+
+    };
+
+    return (
+        &lt;div className="update-view justify-content-center">
+            &lt;span className="d-flex align-items-center mb-4">
+                &lt;Link to={`/profile`}>
+                    &lt;i className="material-icons">Back&lt;/i>
+                &lt;/Link>
+                &lt;h1 className="">Update {user}'s profile&lt;/h1>
+            &lt;/span>
+            &lt;p className="text">Please make sure you fill in every input field before pressing update-button.
+      If you want to keep some data as it is, fill in original data again.&lt;/p>
+
+
+
+            &lt;Row className="justify-content-center">
+
+                &lt;Col>
+                    &lt;Container className="container update-container border-0 mt-0">
+                        &lt;Form className="update-form">
+                            &lt;Form.Group controlId="formBasicUsername">
+                                &lt;Form.Label>Username&lt;/Form.Label>
+                                &lt;Form.Control required type="text" placeholder="Update username or repeat original" onChange={e => updateUsername(e.target.value)} />
+                            &lt;/Form.Group>
+                            &lt;Form.Group controlId="formBasicPassword">
+                                &lt;Form.Label>Password&lt;/Form.Label>
+                                &lt;Form.Control required type="password" placeholder="Update password or repeat original" onChange={e => updatePassword(e.target.value)} />
+                            &lt;/Form.Group>
+                            &lt;Form.Group controlId="formBasicEmail">
+                                &lt;Form.Label>Email&lt;/Form.Label>
+                                &lt;Form.Control required type="text" placeholder="Update your email adress or repeat original" onChange={e => updateEmail(e.target.value)} />
+                            &lt;/Form.Group>
+                            &lt;Form.Group controlId="formBasicBirthday">
+                                &lt;Form.Label>Date of Birth&lt;/Form.Label>
+                                &lt;Form.Control required type="date" placeholder="Update your birthday or repeat original" onChange={e => updateBirthday(e.target.value)} />
+                            &lt;/Form.Group>
+                            &lt;Row className="justify-content-end">
+                                &lt;Button className="update-btn mr-3" variant="primary" type="submit" onClick={handleUpdate}>Update&lt;/Button>
+                            &lt;/Row>
+                        &lt;/Form>
+                    &lt;/Container>
+
+                &lt;/Col>
+            &lt;/Row>
+        &lt;/div>
+    );
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#getMovies">getMovies</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#handleUpdate">handleUpdate</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#MoviesList">MoviesList</a></li><li><a href="global.html#onLoggedIn">onLoggedIn</a></li><li><a href="global.html#removeFavorite">removeFavorite</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Wed Aug 05 2020 18:32:15 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

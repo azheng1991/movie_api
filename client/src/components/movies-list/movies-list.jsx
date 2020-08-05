@@ -15,6 +15,10 @@ const mapStateToProps = (state) => {
   return { visibilityFilter };
 };
 
+/**
+ * Allows users to filter the list of movies
+ * @function MoviesList
+ */
 function MoviesList(props) {
   const { movies, visibilityFilter } = props;
   let filteredMovies = movies;

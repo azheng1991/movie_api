@@ -12,6 +12,13 @@ export function LoginView(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+ /**
+   * posting username and password to /login
+   * @function handleSubmit
+   * @param {event}
+   * @return {object} User information
+   */
+
     const handleSubmit = (e) => {
         e.preventDefault();
         let loginUrl = "https://desolate-forest-59381.herokuapp.com/login";

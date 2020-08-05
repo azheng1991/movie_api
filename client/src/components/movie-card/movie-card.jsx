@@ -6,7 +6,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 export class MovieCard extends React.Component {
 
-
+ /**
+   * Adds a movie to list of user´s favorites
+   * @function addFavorite
+   * @axios
+   */
     addFavoriteMovie(movieData) {
     const username = localStorage.getItem("user");
     const token = localStorage.getItem("token");

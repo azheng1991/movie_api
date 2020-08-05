@@ -1,4 +1,32 @@
-import React from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: profile-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: profile-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from "react";
 //Routing
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -98,46 +126,46 @@ export class ProfileView extends React.Component {
     if (!userData)
       return (
 
-       <center>
-       <Spinner animation="border" role="status">
-        <span className="sr-only">Loading...</span>
-      </Spinner>
-      </center>
+       &lt;center>
+       &lt;Spinner animation="border" role="status">
+        &lt;span className="sr-only">Loading...&lt;/span>
+      &lt;/Spinner>
+      &lt;/center>
 
       );
     return (
-      <Container>
-        <h1>My Profile</h1>
-        <br />
-        <Card>
-          <Card.Body>
-          <Card.Text>Username: {this.state.userData.Username}</Card.Text>
-            <Card.Text>Password: xxxxxx</Card.Text>
-            <Card.Text>Email: {this.state.userData.Email}</Card.Text>
-            <Card.Text>Birthday: {this.state.userData.BirthDate}</Card.Text>
+      &lt;Container>
+        &lt;h1>My Profile&lt;/h1>
+        &lt;br />
+        &lt;Card>
+          &lt;Card.Body>
+          &lt;Card.Text>Username: {this.state.userData.Username}&lt;/Card.Text>
+            &lt;Card.Text>Password: xxxxxx&lt;/Card.Text>
+            &lt;Card.Text>Email: {this.state.userData.Email}&lt;/Card.Text>
+            &lt;Card.Text>Birthday: {this.state.userData.BirthDate}&lt;/Card.Text>
 
-            <Card.Text>
+            &lt;Card.Text>
               Favorite Movies:
-              {userData.FavoriteMovies.length === 0 && (
+              {userData.FavoriteMovies.length === 0 &amp;&amp; (
                 'No Favorite Movies have been added.'
               )}
               {/* you need to check the length of the array */}
-              {userData.FavoriteMovies.length > 0 && (
-                <ul>
+              {userData.FavoriteMovies.length > 0 &amp;&amp; (
+                &lt;ul>
                   {userData.FavoriteMovies.map((favoriteMovie) => (
-                    <li key={favoriteMovie}>
-                      <span className="favoriteMovies">
+                    &lt;li key={favoriteMovie}>
+                      &lt;span className="favoriteMovies">
                         {
                           movies.find((movie) => movie._id === favoriteMovie)
 .Title
                         }
-                      </span>
-                      <Link to={`/movies/${favoriteMovie}`}>
-                        <Button size="sm" variant="info">
+                      &lt;/span>
+                      &lt;Link to={`/movies/${favoriteMovie}`}>
+                        &lt;Button size="sm" variant="info">
                           Open
-                        </Button>
-                      </Link>
-                      <Button
+                        &lt;/Button>
+                      &lt;/Link>
+                      &lt;Button
                         variant="secondary"
                         size="sm"
                         onClick={(event) =>
@@ -145,29 +173,52 @@ export class ProfileView extends React.Component {
                         }
                       >
                         Delete
-                      </Button>
-                    </li>
+                      &lt;/Button>
+                    &lt;/li>
                   ))}
-                </ul>
+                &lt;/ul>
               )}
-            </Card.Text>
-            <br />
-            <br />
-            <Link to={"/update/:Username"}>
-              <Button variant="primary">Update Profile</Button>
-              <br />
-              <br />
-            </Link>
+            &lt;/Card.Text>
+            &lt;br />
+            &lt;br />
+            &lt;Link to={"/update/:Username"}>
+              &lt;Button variant="primary">Update Profile&lt;/Button>
+              &lt;br />
+              &lt;br />
+            &lt;/Link>
             {/* you had user here which is not defined, pull username out of state. */}
-            <Button onClick={() => this.deleteUser(event, userData.Username)}>
+            &lt;Button onClick={() => this.deleteUser(event, userData.Username)}>
               Delete User
-            </Button>
-            <br />
-            <br />
-            <Link to={`/`}>Back</Link>
-          </Card.Body>
-        </Card>
-      </Container>
+            &lt;/Button>
+            &lt;br />
+            &lt;br />
+            &lt;Link to={`/`}>Back&lt;/Link>
+          &lt;/Card.Body>
+        &lt;/Card>
+      &lt;/Container>
     );
   }
 }
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#getMovies">getMovies</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#handleUpdate">handleUpdate</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#MoviesList">MoviesList</a></li><li><a href="global.html#onLoggedIn">onLoggedIn</a></li><li><a href="global.html#removeFavorite">removeFavorite</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Wed Aug 05 2020 18:32:15 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

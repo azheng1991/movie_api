@@ -1,4 +1,32 @@
-import React from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: main-view.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: main-view.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React from 'react';
 import axios from "axios";
 import { connect } from 'react-redux';
 
@@ -119,74 +147,74 @@ getMovies(token) {
     let { user } = this.state;
 
 
-    if (!movies) return <div className="main-view" />;
+    if (!movies) return &lt;div className="main-view" />;
 
     return (
-      <div className="main-view">
-        <Router basename="/client">
-        <Navbar bg="dark" variant="dark">
-            <Link to={"/"}>
-              <Navbar.Brand className="main-title">MyFlix</Navbar.Brand>
-            </Link>
-            <Nav className="mr-auto">
-            </Nav>
-            {user && (
-              <div>
-                <Link to={"/profile"}>
-                  <Button variant="link">Profile</Button>
-                </Link>
-                <Link to="/">
-                  <Button onClick={() => this.onLogOut()}>Log Out</Button>
-                </Link>
-              </div>
+      &lt;div className="main-view">
+        &lt;Router basename="/client">
+        &lt;Navbar bg="dark" variant="dark">
+            &lt;Link to={"/"}>
+              &lt;Navbar.Brand className="main-title">MyFlix&lt;/Navbar.Brand>
+            &lt;/Link>
+            &lt;Nav className="mr-auto">
+            &lt;/Nav>
+            {user &amp;&amp; (
+              &lt;div>
+                &lt;Link to={"/profile"}>
+                  &lt;Button variant="link">Profile&lt;/Button>
+                &lt;/Link>
+                &lt;Link to="/">
+                  &lt;Button onClick={() => this.onLogOut()}>Log Out&lt;/Button>
+                &lt;/Link>
+              &lt;/div>
             )}
-          </Navbar>
+          &lt;/Navbar>
 
 
-          <Container>
-            <Row>
-              <Route
+          &lt;Container>
+            &lt;Row>
+              &lt;Route
                 exact
                 path="/"
                 render={() => {
                   if (!user)
                     return (
-                      <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
+                      &lt;LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                     );
                   return (
-                    <div className="moviesList">
+                    &lt;div className="moviesList">
                       {/* {movies.map((m) => (
-                        <MovieCard key={m._id} movie={m} />
+                        &lt;MovieCard key={m._id} movie={m} />
                       ))} */}
-                      <MoviesList movies={movies} />;
-                    </div>
+                      &lt;MoviesList movies={movies} />;
+                    &lt;/div>
                  );
                 }}
               />
-              <Route
+              &lt;Route
                 exact
                 path="/register"
                 render={() => {
-                  return <RegistrationView />;
+                  return &lt;RegistrationView />;
                 }}
               />
-              <Route
+              &lt;Route
                 exact
                 path="/movies/:movieId"
                 render={({ match }) => {
                   return (
-                    <MovieView
+                    &lt;MovieView
                       movie={movies.find((m) => m._id === match.params.movieId)}
                     />
                   );
                 }}
               />
-              <Route
+              &lt;Route
                 exact
                 path="/genres/:name"
                 render={({ match }) => {
                   return (
-                    <GenreView
+                    &lt;GenreView
                       movie={movies.find(
                         (m) => m.Genre.Name === match.params.name
                       )}
@@ -194,12 +222,12 @@ getMovies(token) {
                   );
                 }}
               />
-              <Route
+              &lt;Route
                 exact
                 path="/directors/:name"
                 render={({ match }) => {
                   return (
-                    <DirectorView
+                    &lt;DirectorView
                       movie={movies.find(
                         (m) => m.Director.Name === match.params.name
                       )}
@@ -208,12 +236,12 @@ getMovies(token) {
                 }}
               />
 
-              <Route
+              &lt;Route
                 exact
                 path="/profile"
                 render={() => {
                   return (
-                    <ProfileView
+                    &lt;ProfileView
                       user={user}
                       movies={movies}
                       token={localStorage.getItem("token")}
@@ -221,15 +249,15 @@ getMovies(token) {
                   );
                 }}
               />
-              <Route
+              &lt;Route
                 exact
                 path="/update/:Username"
-                render={() => <UpdateView user={user} />}
+                render={() => &lt;UpdateView user={user} />}
               />
-            </Row>
-          </Container>
-        </Router>
-      </div>
+            &lt;/Row>
+          &lt;/Container>
+        &lt;/Router>
+      &lt;/div>
     );
   }
 }
@@ -237,3 +265,26 @@ let mapStateToProps = state => {
   return { movies: state.movies }
 }
 export default connect(mapStateToProps, { setMovies } )(MainView);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addFavorite">addFavorite</a></li><li><a href="global.html#getMovies">getMovies</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleDelete">handleDelete</a></li><li><a href="global.html#handleSubmit">handleSubmit</a></li><li><a href="global.html#handleUpdate">handleUpdate</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#MoviesList">MoviesList</a></li><li><a href="global.html#onLoggedIn">onLoggedIn</a></li><li><a href="global.html#removeFavorite">removeFavorite</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.5</a> on Wed Aug 05 2020 18:32:15 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
