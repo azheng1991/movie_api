@@ -57,9 +57,10 @@ export function UpdateView(props) {
     return (
         <div className="update-view justify-content-center">
             <span className="d-flex align-items-center mb-4">
-                <Link to={`/profile`}>
+            <Link to={`/profile`}>
                     <i className="material-icons">Back</i>
                 </Link>
+
                 <h1 className="">Update {user}'s profile</h1>
             </span>
             <p className="text">Please make sure you fill in every input field before pressing update-button.
@@ -90,7 +91,9 @@ export function UpdateView(props) {
                             </Form.Group>
                             <Row className="justify-content-end">
                                 <Button className="update-btn mr-3" variant="primary" type="submit" onClick={handleUpdate}>Update</Button>
+
                             </Row>
+
                         </Form>
                     </Container>
 

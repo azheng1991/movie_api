@@ -43,6 +43,9 @@ export const RegistrationView = (props) => {
     };
 
     return (
+
+
+
         <Container className="registrationForm">
             <Form>
                 <Form.Group controlId="formBasicUsername">
@@ -77,5 +80,7 @@ export const RegistrationView = (props) => {
                 </Form.Text>
             </Form>
         </Container>
+
+
     )
 }
